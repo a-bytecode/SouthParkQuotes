@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.southparkquotes.databinding.HomeFragmentBinding
+import com.example.southparkquotes.databinding.MenuFragmentBinding
 import model.MainViewModel
 
-class HomeFragment : Fragment() {
+class MenuFragment : Fragment() {
 
-    private lateinit var binding: HomeFragmentBinding
+    private lateinit var binding: MenuFragmentBinding
 
     private val viewModel : MainViewModel by activityViewModels()
 
@@ -21,7 +22,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = HomeFragmentBinding.inflate(inflater)
+        binding = MenuFragmentBinding.inflate(inflater)
         return binding.root
 
     }
@@ -29,6 +30,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-     }
+    }
 
 }
