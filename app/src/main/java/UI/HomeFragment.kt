@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.databinding.HomeFragmentBinding
 import model.MainViewModel
 
@@ -28,7 +29,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
+        binding.Startbtng.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMenuFragment())
+        }
      }
 
 }
