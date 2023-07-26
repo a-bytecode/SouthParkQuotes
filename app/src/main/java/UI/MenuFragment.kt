@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.southparkquotes.R
-import com.example.southparkquotes.databinding.HomeFragmentBinding
 import com.example.southparkquotes.databinding.MenuFragmentBinding
-import model.Charakter
 import model.MainViewModel
 
 class MenuFragment : Fragment() {
@@ -32,34 +31,29 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        var charPick = 0
-
         val stanImageView = view.findViewById<ImageView>(R.id.characterIV)
 
-        var stan = Charakter("Stan",R.drawable.stan_marsh_0, "Lets Rock it.")
-        var cartman = Charakter("Stan",R.drawable.eric_cartman, "Lets Rock it.")
-        var kyle = Charakter("Stan",R.drawable.kyle_broflovski, "Lets Rock it.")
-        var butters = Charakter("Stan",R.drawable.buttersstotch, "Lets Rock it.")
+        stanImageView.setImageResource(viewModel.stan.imageResource)
 
-        var charList = mutableListOf(stan,kyle,butters,cartman)
+        viewModel.updateCharacterName(viewModel.charList[viewModel.charPick].name)
 
-        stanImageView.setImageResource(stan.imageResource)
+        viewModel.characterNameLiveData.observe(viewLifecycleOwner) { newName ->
+            binding.nameTV.text = newName
+        }
 
         binding.leftIV.setOnClickListener {
 
-            charPick = (charPick +1) % charList.size
+            viewModel.switchCharactersLeft(stanImageView)
 
-            stanImageView.setImageResource(charList[charPick].imageResource)
 
         }
 
         binding.rightIV.setOnClickListener {
 
-            charPick = (charPick + 1) % charList.size
-
-            stanImageView.setImageResource(charList[charPick].imageResource)
-
+            viewModel.switchCharaktersRight(stanImageView)
         }
+
+
     }
 
 }
