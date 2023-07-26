@@ -32,12 +32,32 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        var stanImageID = view.findViewById<ImageView>(R.id.characterIV)
+        var charPick = 0
 
-        var stan : Charakter = Charakter("Stan",R.drawable.stan_marsh_0, "Lets Rock it.")
+        val stanImageView = view.findViewById<ImageView>(R.id.characterIV)
+
+        var stan = Charakter("Stan",R.drawable.stan_marsh_0, "Lets Rock it.")
+        var cartman = Charakter("Stan",R.drawable.eric_cartman, "Lets Rock it.")
+        var kyle = Charakter("Stan",R.drawable.kyle_broflovski, "Lets Rock it.")
+        var butters = Charakter("Stan",R.drawable.buttersstotch, "Lets Rock it.")
+
+        var charList = mutableListOf(stan,kyle,butters,cartman)
+
+        stanImageView.setImageResource(stan.imageResource)
 
         binding.leftIV.setOnClickListener {
 
+            charPick = (charPick +1) % charList.size
+
+            stanImageView.setImageResource(charList[charPick].imageResource)
+
+        }
+
+        binding.rightIV.setOnClickListener {
+
+            charPick = (charPick + 1) % charList.size
+
+            stanImageView.setImageResource(charList[charPick].imageResource)
 
         }
     }

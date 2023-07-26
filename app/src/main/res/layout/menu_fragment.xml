@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:rotation="180f"
+                android:rotation="180"
                 app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
 
             <ImageView
