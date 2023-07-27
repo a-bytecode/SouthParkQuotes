@@ -7,16 +7,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.MenuFragmentBinding
 import model.MainViewModel
+import remote.Repository
 
 class MenuFragment : Fragment() {
 
     private lateinit var binding: MenuFragmentBinding
 
     private val viewModel : MainViewModel by activityViewModels()
+
+    private val repo = Repository()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,9 +35,9 @@ class MenuFragment : Fragment() {
 
         val stanImageView = view.findViewById<ImageView>(R.id.characterIV)
 
-        stanImageView.setImageResource(viewModel.stan.imageResource)
+        stanImageView.setImageResource(repo.stan.imageResource)
 
-        viewModel.updateCharacterName(viewModel.charList[viewModel.charPick].name)
+        viewModel.updateCharacterName(repo.charList[repo.charPick].name)
 
         viewModel.characterNameLiveData.observe(viewLifecycleOwner) { newName ->
             binding.nameTV.text = newName
@@ -45,14 +47,13 @@ class MenuFragment : Fragment() {
 
             viewModel.switchCharactersLeft(stanImageView)
 
-
         }
 
         binding.rightIV.setOnClickListener {
 
             viewModel.switchCharaktersRight(stanImageView)
-        }
 
+        }
 
     }
 
