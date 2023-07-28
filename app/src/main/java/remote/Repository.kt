@@ -5,8 +5,7 @@ import model.Charakter
 
 class Repository {
 
-
-    var charPick = 0
+    var charPick = 0 // Wird verwendet
 
     var stan = Charakter("Stan", R.drawable.stan_marsh_0, "Lets Rock it.")
     var cartman = Charakter("Cartman", R.drawable.eric_cartman, "Lets Rock it.")
@@ -14,4 +13,5 @@ class Repository {
     var butters = Charakter("Butters", R.drawable.buttersstotch, "Lets Rock it.")
 
     var charList = mutableListOf(stan,kyle,butters,cartman)
+
 }

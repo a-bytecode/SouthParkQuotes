@@ -51,7 +51,7 @@ class MenuFragment : Fragment() {
 
         binding.rightIV.setOnClickListener {
 
-            viewModel.switchCharaktersRight(stanImageView)
+            viewModel.switchCharactersRight(stanImageView)
 
         }
 

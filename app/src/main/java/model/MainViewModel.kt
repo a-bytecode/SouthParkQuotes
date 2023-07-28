@@ -20,7 +20,7 @@ class MainViewModel : ViewModel() {
         characterNameLiveData.value = repo.charList[repo.charPick].name
     }
 
-    fun switchCharaktersRight(imageView: ImageView) {
+    fun switchCharactersRight(imageView: ImageView) {
 
         repo.charPick = (repo.charPick - 1 + repo.charList.size) % repo.charList.size
 
@@ -30,10 +30,10 @@ class MainViewModel : ViewModel() {
     }
 
     fun updateCharacterName(newName: String) {
-        // TODO:
-        for (charakter in repo.charList) {
 
-            if (charakter.name == newName) {
+        for (character in repo.charList) {
+
+            if (character.name == newName) {
                 characterNameLiveData.value = newName
                 break
             }
