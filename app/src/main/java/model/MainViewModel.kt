@@ -1,5 +1,6 @@
 package model
 
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -87,5 +88,13 @@ class MainViewModel : ViewModel() {
             }
         }
 
+    }
+
+    fun setVisible(input: ImageView) {
+        input.visibility = View.VISIBLE
+    }
+
+    fun setGone(input: ImageView) {
+        input.visibility = View.GONE
     }
 }

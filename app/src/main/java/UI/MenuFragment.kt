@@ -59,9 +59,12 @@ class MenuFragment : Fragment() {
         }
 
         binding.checkIV.setOnClickListener {
-            findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToQuotesMenuFragment())
+            viewModel.setVisible(binding.check2IV)
+            viewModel.setGone(binding.checkIV)
         }
 
+        binding.check2IV.setOnClickListener {
+            findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToQuotesMenuFragment())
+            }
+        }
     }
-
-}
