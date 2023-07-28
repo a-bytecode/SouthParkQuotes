@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.MenuFragmentBinding
 import model.MainViewModel
@@ -33,9 +34,11 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        // TODO: Tasten Einbinden & Übergabe-Argumente über den Navgraph einstellen.
+
         val stanImageView = view.findViewById<ImageView>(R.id.characterIV)
 
-        stanImageView.setImageResource(repo.stan.imageResource)
+        stanImageView.setImageResource(repo.charList[repo.charPick].imageResource)
 
         viewModel.updateCharacterName(repo.charList[repo.charPick].name)
 
@@ -51,10 +54,17 @@ class MenuFragment : Fragment() {
 
         binding.rightIV.setOnClickListener {
 
-            viewModel.switchCharaktersRight(stanImageView)
+            viewModel.switchCharactersRight(stanImageView)
 
         }
 
-    }
+        binding.checkIV.setOnClickListener {
+            viewModel.setVisible(binding.check2IV)
+            viewModel.setGone(binding.checkIV)
+        }
 
-}
+        binding.check2IV.setOnClickListener {
+            findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToQuotesMenuFragment())
+            }
+        }
+    }
