@@ -29,6 +29,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        viewModel.anmitateTextView(binding.SouthParkHeadTV)
+
         binding.Startbtng.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMenuFragment())
         }

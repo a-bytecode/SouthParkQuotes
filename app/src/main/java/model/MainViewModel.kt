@@ -2,8 +2,10 @@ package model
 
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.*
 import remote.Repository
 
 class MainViewModel : ViewModel() {
@@ -53,7 +55,6 @@ class MainViewModel : ViewModel() {
         } else {
             editNumber.setText(newNumber.toString())
         }
-
     }
 
     fun subNumber(editNumber: EditText) {
@@ -67,6 +68,23 @@ class MainViewModel : ViewModel() {
             editNumber.setText((0).toString())
         } else {
             editNumber.setText(newNumber.toString())
+        }
+    }
+
+    fun anmitateTextView(inputText: TextView) {
+
+        val text = inputText.text.toString()
+        val stringBuilder = java.lang.StringBuilder()
+
+        GlobalScope.launch(Dispatchers.Default) {
+
+            for (char in text) {
+                stringBuilder.append(char)
+                withContext(Dispatchers.Main) {
+                    inputText.text = stringBuilder.toString()
+                }
+                delay(500)
+            }
         }
 
     }
