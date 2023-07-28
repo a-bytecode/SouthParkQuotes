@@ -1,5 +1,6 @@
 package model
 
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,5 +39,19 @@ class MainViewModel : ViewModel() {
                 break
             }
         }
+    }
+
+    fun addNumber(editNumber: EditText) {
+
+        val currentNumber = editNumber.text.toString().toIntOrNull() ?: 1 // Elvis-Operator,
+        // wenn der Anfangswert keine gültige Zahl hat oder null ist wird er Automatisch auf
+        // eine 1 gesetzt.
+        val newNumber = currentNumber +1
+
+        editNumber.setText(newNumber.toString())
+    }
+
+    fun subNumber(editNumber: EditText) {
+
     }
 }

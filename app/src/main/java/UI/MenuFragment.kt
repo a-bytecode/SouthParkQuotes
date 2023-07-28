@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.MenuFragmentBinding
 import model.MainViewModel
@@ -53,6 +54,10 @@ class MenuFragment : Fragment() {
 
             viewModel.switchCharactersRight(stanImageView)
 
+        }
+
+        binding.checkIV.setOnClickListener {
+            findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToQuotesMenuFragment())
         }
 
     }

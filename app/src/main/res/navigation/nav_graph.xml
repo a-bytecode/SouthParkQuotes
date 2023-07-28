@@ -19,5 +19,19 @@
         <action
             android:id="@+id/action_menuFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_quotesMenuFragment"
+            app:destination="@id/quotesMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/quotesMenuFragment"
+        android:name="UI.QuotesMenuFragment"
+        android:label="QuotesMenuFragment" >
+        <action
+            android:id="@+id/action_quotesMenuFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_quotesMenuFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
 </navigation>
