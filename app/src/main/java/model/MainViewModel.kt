@@ -83,7 +83,7 @@ class MainViewModel : ViewModel() {
                 withContext(Dispatchers.Main) {
                     inputText.text = stringBuilder.toString()
                 }
-                delay(500)
+                delay(300)
             }
         }
 

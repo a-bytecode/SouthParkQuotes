@@ -33,7 +33,7 @@ class QuotesMenuFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-       // TODO:
+       // TODO: Tasten Einbinden & Übergabe-Argumente über den Navgraph einstellen.
         binding.rightqIV.setOnClickListener {
 
             viewModel.addNumber(binding.editTextNumber)

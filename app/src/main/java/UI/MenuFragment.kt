@@ -34,9 +34,11 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        // TODO: Tasten Einbinden & Übergabe-Argumente über den Navgraph einstellen.
+
         val stanImageView = view.findViewById<ImageView>(R.id.characterIV)
 
-        stanImageView.setImageResource(repo.stan.imageResource)
+        stanImageView.setImageResource(repo.charList[repo.charPick].imageResource)
 
         viewModel.updateCharacterName(repo.charList[repo.charPick].name)
 
