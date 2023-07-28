@@ -38,5 +38,9 @@ class QuotesMenuFragment: Fragment() {
 
             viewModel.addNumber(binding.editTextNumber)
         }
+
+        binding.leftqIV.setOnClickListener {
+            viewModel.subNumber(binding.editTextNumber)
+        }
     }
 }

@@ -48,10 +48,26 @@ class MainViewModel : ViewModel() {
         // eine 1 gesetzt.
         val newNumber = currentNumber +1
 
-        editNumber.setText(newNumber.toString())
+        if (newNumber >= 5) {
+            editNumber.setText((5).toString())
+        } else {
+            editNumber.setText(newNumber.toString())
+        }
+
     }
 
     fun subNumber(editNumber: EditText) {
+
+        val currentNumber = editNumber.text.toString().toIntOrNull() ?: 1 // Elvis-Operator,
+        // wenn der Anfangswert keine gültige Zahl hat oder null ist wird er Automatisch auf
+        // eine 1 gesetzt.
+        val newNumber = currentNumber -1
+
+        if (newNumber <= 0) {
+            editNumber.setText((0).toString())
+        } else {
+            editNumber.setText(newNumber.toString())
+        }
 
     }
 }
