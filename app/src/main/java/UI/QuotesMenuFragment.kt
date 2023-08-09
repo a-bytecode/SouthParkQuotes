@@ -28,19 +28,22 @@ class QuotesMenuFragment: Fragment() {
 
         binding = QuotesmenuFragmentBinding.inflate(inflater)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
        // TODO: Tasten Einbinden & Übergabe-Argumente über den Navgraph einstellen.
         binding.rightqIV.setOnClickListener {
-
             viewModel.addNumber(binding.editTextNumber)
         }
 
         binding.leftqIV.setOnClickListener {
             viewModel.subNumber(binding.editTextNumber)
+        }
+
+        binding.checkqIV.setOnClickListener {
+            viewModel.setGone(binding.checkqIV)
+            viewModel.setVisible(binding.check2qIV)
         }
     }
 }
