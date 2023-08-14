@@ -59,8 +59,10 @@ class MenuFragment : Fragment() {
         }
 
         binding.checkIV.setOnClickListener {
+
             viewModel.setVisible(binding.check2IV)
             viewModel.setGone(binding.checkIV)
+
         }
 
         binding.check2IV.setOnClickListener {
