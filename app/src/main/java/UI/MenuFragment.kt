@@ -12,6 +12,7 @@ import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.MenuFragmentBinding
 import model.MainViewModel
 import remote.Repository
+import remote.SPQuotesApiByCharacters
 import remote.SouthParkApiServiceQNumber
 
 class MenuFragment : Fragment() {
@@ -22,7 +23,9 @@ class MenuFragment : Fragment() {
 
     private val api = SouthParkApiServiceQNumber.UserApi
 
-    private val repo = Repository(api)
+    private val charApi = SPQuotesApiByCharacters.UserApi
+
+    private val repo = Repository(api,charApi)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,9 +42,9 @@ class MenuFragment : Fragment() {
 
         // TODO: Tasten Einbinden & Übergabe-Argumente über den Navgraph einstellen.
 
-        val stanImageView = view.findViewById<ImageView>(R.id.characterIV)
+        val needImageView = view.findViewById<ImageView>(R.id.characterIV)
 
-        repo.charList[repo.charPick].imageResource?.let { stanImageView.setImageResource(it) }
+        repo.charList[repo.charPick].imageResource?.let { needImageView.setImageResource(it) }
 
         viewModel.updateCharacterName(repo.charList[repo.charPick].name)
 
@@ -51,13 +54,13 @@ class MenuFragment : Fragment() {
 
         binding.leftIV.setOnClickListener {
 
-            viewModel.switchCharactersLeft(stanImageView)
+            viewModel.switchCharactersLeft(needImageView)
 
         }
 
         binding.rightIV.setOnClickListener {
 
-            viewModel.switchCharactersRight(stanImageView)
+            viewModel.switchCharactersRight(needImageView)
 
         }
 
@@ -69,7 +72,14 @@ class MenuFragment : Fragment() {
         }
 
         binding.check2IV.setOnClickListener {
-            findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToQuotesMenuFragment())
-            }
+            val imageResource = repo.charList[repo.charPick].imageResource
+            viewModel.selectedImageResource = imageResource ?: R.drawable.stan_marsh_0 // Standardwert einsetzen
+
+            findNavController().navigate(
+                MenuFragmentDirections.actionMenuFragmentToQuotesMenuFragment(
+                    viewModel.selectedImageResource, viewModel.selectedCharacterName.value ?: ""
+                )
+            )
         }
     }
+}

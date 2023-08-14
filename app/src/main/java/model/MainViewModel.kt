@@ -8,19 +8,29 @@ import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.southparkquotes.R
 import kotlinx.coroutines.*
 import remote.Repository
+import remote.SPQuotesApiByCharacters
 import remote.SouthParkApiServiceQNumber
 
 class MainViewModel : ViewModel() {
 
-    private var api = SouthParkApiServiceQNumber.UserApi
+    var api = SouthParkApiServiceQNumber.UserApi
 
-    private var repo = Repository(api)
+    var charApi = SPQuotesApiByCharacters.UserApi
+
+    var repo = Repository(api,charApi)
 
     val characterNameLiveData = MutableLiveData<String>() // Aktualisierung des Namens durch Mutable Live Data
 
     val charListRequest = repo.characterListResponse
+
+    var selectedCharacterImage = repo.characterImageResponse
+
+    val selectedCharacterName = repo.selectedCharacterName
+
+    var selectedImageResource: Int = R.drawable.stan_marsh_0 // Hier Standardwert einsetzen
 
     fun switchCharactersLeft(imageView: ImageView) {
 
@@ -28,10 +38,11 @@ class MainViewModel : ViewModel() {
 
         repo.charList[repo.charPick].imageResource?.let {
             imageView.setImageResource(it)
+            selectedImageResource = it
+            characterNameLiveData.value = repo.charList[repo.charPick].name
+            getCharacterImage(repo.charList[repo.charPick].name)
         }
-
-        characterNameLiveData.value = repo.charList[repo.charPick].name
-    }
+     }
 
     fun switchCharactersRight(imageView: ImageView) {
 
@@ -39,9 +50,11 @@ class MainViewModel : ViewModel() {
 
         repo.charList[repo.charPick].imageResource?.let {
             imageView.setImageResource(it)
+            selectedImageResource = it
         }
 
         characterNameLiveData.value = repo.charList[repo.charPick].name
+        getCharacterImage(characterNameLiveData.value!!)
     }
 
     fun updateCharacterName(newName: String) {
@@ -98,7 +111,6 @@ class MainViewModel : ViewModel() {
                 delay(300)
             }
         }
-
     }
 
     fun setVisible(input: ImageView) {
@@ -115,6 +127,18 @@ class MainViewModel : ViewModel() {
                 repo.getQuotesNumber(number)
             } catch(e:Exception) {
                 Log.d("Error im ViewModel","${charListRequest.value}")
+            }
+        }
+    }
+
+    fun getCharacterImage(characterName: String) {
+        viewModelScope.launch {
+            try {
+                repo.getCharacterImage(characterName)
+                Log.d("CharName-Test","${characterName}")
+
+            } catch (e:Exception) {
+                Log.d("Error im ViewModel","${selectedCharacterImage.value}")
             }
         }
     }
