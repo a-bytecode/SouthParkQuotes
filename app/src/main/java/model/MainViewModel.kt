@@ -1,25 +1,34 @@
 package model
 
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 import remote.Repository
+import remote.SouthParkApiServiceQNumber
 
 class MainViewModel : ViewModel() {
 
-    private var repo = Repository()
+    private var api = SouthParkApiServiceQNumber.UserApi
+
+    private var repo = Repository(api)
 
     val characterNameLiveData = MutableLiveData<String>() // Aktualisierung des Namens durch Mutable Live Data
+
+    val charListRequest = repo.characterListResponse
 
     fun switchCharactersLeft(imageView: ImageView) {
 
         repo.charPick = (repo.charPick +1) % repo.charList.size
 
-        imageView.setImageResource(repo.charList[repo.charPick].imageResource)
+        repo.charList[repo.charPick].imageResource?.let {
+            imageView.setImageResource(it)
+        }
 
         characterNameLiveData.value = repo.charList[repo.charPick].name
     }
@@ -28,7 +37,9 @@ class MainViewModel : ViewModel() {
 
         repo.charPick = (repo.charPick - 1 + repo.charList.size) % repo.charList.size
 
-        imageView.setImageResource(repo.charList[repo.charPick].imageResource)
+        repo.charList[repo.charPick].imageResource?.let {
+            imageView.setImageResource(it)
+        }
 
         characterNameLiveData.value = repo.charList[repo.charPick].name
     }
@@ -96,5 +107,15 @@ class MainViewModel : ViewModel() {
 
     fun setGone(input: ImageView) {
         input.visibility = View.GONE
+    }
+
+    fun getQuotesNumber(number:String) {
+        viewModelScope.launch {
+            try {
+                repo.getQuotesNumber(number)
+            } catch(e:Exception) {
+                Log.d("Error im ViewModel","${charListRequest.value}")
+            }
+        }
     }
 }

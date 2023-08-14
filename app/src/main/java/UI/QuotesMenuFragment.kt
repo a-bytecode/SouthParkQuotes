@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.QuotesmenuFragmentBinding
 import model.MainViewModel
@@ -44,6 +45,12 @@ class QuotesMenuFragment: Fragment() {
         binding.checkqIV.setOnClickListener {
             viewModel.setGone(binding.checkqIV)
             viewModel.setVisible(binding.check2qIV)
+        }
+
+        binding.check2qIV.setOnClickListener {
+            findNavController()
+                .navigate(QuotesMenuFragmentDirections.
+                actionQuotesMenuFragmentToDetailQuoteFragment())
         }
     }
 }

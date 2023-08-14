@@ -21,13 +21,20 @@ class DetailQuoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DetailquoteFragmentBinding.inflate(inflater)
+        binding = DetailquoteFragmentBinding.inflate(inflater, container, false)
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        binding.detailSPQuote.setOnClickListener {
+            viewModel.getQuotesNumber("1")
+        }
 
+        viewModel.charListRequest.observe(viewLifecycleOwner) { charList ->
+            val spQuote = charList[0].quote
+            binding.detailSPQuote.text = spQuote
+        }
     }
 }
