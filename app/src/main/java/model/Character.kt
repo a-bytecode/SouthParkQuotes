@@ -1,11 +1,15 @@
 package model
 
-import android.widget.ImageView
+import com.squareup.moshi.Json
 
-class Charakter(
+data class Character(
 
+    @Json(name = "character")
     var name : String,
+
     var imageResource: Int, // Hier speichern wir die ID des Bildes (Resource-Id)
+
+    @Json(name = "quote")
     var quote : String
 
 )

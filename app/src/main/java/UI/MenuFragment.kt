@@ -12,6 +12,7 @@ import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.MenuFragmentBinding
 import model.MainViewModel
 import remote.Repository
+import remote.SouthParkApiServiceQNumber
 
 class MenuFragment : Fragment() {
 
@@ -19,7 +20,9 @@ class MenuFragment : Fragment() {
 
     private val viewModel : MainViewModel by activityViewModels()
 
-    private val repo = Repository()
+    private val api = SouthParkApiServiceQNumber.UserApi
+
+    private val repo = Repository(api)
 
     override fun onCreateView(
         inflater: LayoutInflater,
