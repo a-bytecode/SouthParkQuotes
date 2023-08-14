@@ -14,11 +14,14 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewDetail"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="157dp"
+            android:layout_marginTop="130dp"
             android:layout_marginEnd="60dp"
+            android:background="@drawable/speakbubboleshape"
+            android:elevation="20dp"
+            app:cardCornerRadius="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -26,23 +29,27 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#000000">
+                android:background="@drawable/bubble_v1">
 
                 <TextView
                     android:id="@+id/detailSPQuote"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginEnd="24dp"
                     android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/alatsi"
                     android:paddingHorizontal="5dp"
                     android:paddingVertical="5dp"
                     android:text="This is a Placeholder"
-                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
@@ -52,13 +59,14 @@
 
         <ImageView
             android:id="@+id/charPic01detail"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="248dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardViewDetail"
             app:srcCompat="@drawable/stan_marsh_0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

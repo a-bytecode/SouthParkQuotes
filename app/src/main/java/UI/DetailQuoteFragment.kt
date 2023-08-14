@@ -28,7 +28,7 @@ class DetailQuoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        binding.detailSPQuote.setOnClickListener {
+        binding.charPic01detail.setOnClickListener {
             viewModel.getQuotesNumber("1")
         }
 
