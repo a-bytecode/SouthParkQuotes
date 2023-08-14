@@ -28,6 +28,7 @@ class QuotesMenuFragment: Fragment() {
     ): View? {
 
         binding = QuotesmenuFragmentBinding.inflate(inflater)
+        repo = viewModel.repo
         return binding.root
     }
 
@@ -48,9 +49,13 @@ class QuotesMenuFragment: Fragment() {
         }
 
         binding.check2qIV.setOnClickListener {
-            findNavController()
-                .navigate(QuotesMenuFragmentDirections.
-                actionQuotesMenuFragmentToDetailQuoteFragment())
+            viewModel.selectedImageResource = repo.charList[repo.charPick].imageResource!!
+            findNavController().navigate(
+                QuotesMenuFragmentDirections.actionQuotesMenuFragmentToDetailQuoteFragment(
+                    viewModel.selectedImageResource,
+                    viewModel.selectedCharacterName.value ?: ""
+                )
+            )
         }
     }
 }
