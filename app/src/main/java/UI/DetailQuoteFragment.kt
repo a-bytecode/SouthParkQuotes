@@ -32,9 +32,9 @@ class DetailQuoteFragment : Fragment() {
             viewModel.getQuotesNumber("1")
         }
 
-        viewModel.charListRequest.observe(viewLifecycleOwner) {
-            val spQuotes = it
-            binding.detailSPQuote.text = spQuotes.toString()
+        viewModel.charListRequest.observe(viewLifecycleOwner) { charList ->
+            val spQuote = charList[0].quote
+            binding.detailSPQuote.text = spQuote
         }
     }
 }

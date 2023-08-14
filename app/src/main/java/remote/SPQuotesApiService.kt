@@ -11,7 +11,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 
-private const val BASE_URL = "https://southpark-quotes.herokuapp.com/"
+private const val BASE_URL = "https://southparkquotes.onrender.com/"
 
 private val client: OkHttpClient = OkHttpClient.Builder()
     .addInterceptor { chain ->

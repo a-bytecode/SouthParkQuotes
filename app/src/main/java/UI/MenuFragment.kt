@@ -41,7 +41,7 @@ class MenuFragment : Fragment() {
 
         val stanImageView = view.findViewById<ImageView>(R.id.characterIV)
 
-        stanImageView.setImageResource(repo.charList[repo.charPick].imageResource)
+        repo.charList[repo.charPick].imageResource?.let { stanImageView.setImageResource(it) }
 
         viewModel.updateCharacterName(repo.charList[repo.charPick].name)
 

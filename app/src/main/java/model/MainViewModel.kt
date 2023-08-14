@@ -26,7 +26,9 @@ class MainViewModel : ViewModel() {
 
         repo.charPick = (repo.charPick +1) % repo.charList.size
 
-        imageView.setImageResource(repo.charList[repo.charPick].imageResource)
+        repo.charList[repo.charPick].imageResource?.let {
+            imageView.setImageResource(it)
+        }
 
         characterNameLiveData.value = repo.charList[repo.charPick].name
     }
@@ -35,7 +37,9 @@ class MainViewModel : ViewModel() {
 
         repo.charPick = (repo.charPick - 1 + repo.charList.size) % repo.charList.size
 
-        imageView.setImageResource(repo.charList[repo.charPick].imageResource)
+        repo.charList[repo.charPick].imageResource?.let {
+            imageView.setImageResource(it)
+        }
 
         characterNameLiveData.value = repo.charList[repo.charPick].name
     }
