@@ -1,6 +1,7 @@
 package UI
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +35,6 @@ class QuotesMenuFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-       // TODO: Tasten Einbinden & Übergabe-Argumente über den Navgraph einstellen.
         binding.rightqIV.setOnClickListener {
             viewModel.addNumber(binding.editTextNumber)
         }
@@ -49,13 +49,16 @@ class QuotesMenuFragment: Fragment() {
         }
 
         binding.check2qIV.setOnClickListener {
-            viewModel.selectedImageResource = repo.charList[repo.charPick].imageResource!!
+            val imageResource = repo.charList[repo.charPick].imageResource
+            viewModel.selectedImageResource = imageResource ?: R.drawable.stan_marsh_0 // Standardwert einsetzen
+            val selectedCharacter = repo.charList[repo.charPick].name
             findNavController().navigate(
                 QuotesMenuFragmentDirections.actionQuotesMenuFragmentToDetailQuoteFragment(
-                    viewModel.selectedImageResource,
-                    viewModel.selectedCharacterName.value ?: ""
+                    viewModel.selectedImageResource, selectedCharacter
                 )
             )
+
+            Log.d("CharNameMenu",selectedCharacter)
         }
     }
 }

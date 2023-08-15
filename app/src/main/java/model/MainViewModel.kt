@@ -3,45 +3,31 @@ package model
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.os.Build
 import android.util.Log
-import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.PopupMenu
 import android.widget.TextView
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.*
 import remote.Repository
-import remote.SPQuotesApiByCharacters
 import remote.SouthParkApiServiceQNumber
 
 class MainViewModel : ViewModel() {
 
     var api = SouthParkApiServiceQNumber.UserApi
 
-    var charApi = SPQuotesApiByCharacters.UserApi
+    var repo = Repository(api)
 
-    var repo = Repository(api,charApi)
-
-    val characterNameLiveData = MutableLiveData<String>() // Aktualisierung des Namens durch Mutable Live Data
+    val characterNameLiveData = repo.selectedCharacterName // Aktualisierung des Namens durch Mutable Live Data
 
     val charListRequest = repo.characterListResponse
-
-    var selectedCharacterImage = repo.characterImageResponse
-
-    val selectedCharacterName = repo.selectedCharacterName
 
     var popupMenuCallback: PopupMenuCallback? = null
 
@@ -54,8 +40,9 @@ class MainViewModel : ViewModel() {
         repo.charList[repo.charPick].imageResource?.let {
             imageView.setImageResource(it)
             selectedImageResource = it
-            characterNameLiveData.value = repo.charList[repo.charPick].name
-            getCharacterImage(repo.charList[repo.charPick].name)
+            val characterName = repo.charList[repo.charPick].name
+            repo.setSelectedCharacterName(characterName)
+            getQuotesNumber("1",characterName)
         }
      }
 
@@ -66,21 +53,21 @@ class MainViewModel : ViewModel() {
         repo.charList[repo.charPick].imageResource?.let {
             imageView.setImageResource(it)
             selectedImageResource = it
-        }
-
-        characterNameLiveData.value = repo.charList[repo.charPick].name
-        getCharacterImage(characterNameLiveData.value!!)
-    }
+            val characterName = repo.charList[repo.charPick].name
+            repo.setSelectedCharacterName(characterName)
+            getQuotesNumber("1",characterName)
+          }
+     }
 
     fun updateCharacterName(newName: String) {
+            for (character in repo.charList) {
 
-        for (character in repo.charList) {
-
-            if (character.name == newName) {
-                characterNameLiveData.value = newName
-                break
+                if (character.name == newName) {
+                    repo.setSelectedCharacterName(newName)
+                    break
+                }
             }
-        }
+
     }
 
     fun addNumber(editNumber: EditText) {
@@ -136,24 +123,14 @@ class MainViewModel : ViewModel() {
         input.visibility = View.GONE
     }
 
-    fun getQuotesNumber(number:String) {
+    fun getQuotesNumber(number:String, name: String) {
         viewModelScope.launch {
             try {
-                repo.getQuotesNumber(number)
+                repo.getQuotesNumber(number, name)
+                Log.d("GETQUOTES001","${name}")
+
             } catch(e:Exception) {
-                Log.d("Error im ViewModel","${charListRequest.value}")
-            }
-        }
-    }
-
-    fun getCharacterImage(characterName: String) {
-        viewModelScope.launch {
-            try {
-                repo.getCharacterImage(characterName)
-                Log.d("CharName-Test","${characterName}")
-
-            } catch (e:Exception) {
-                Log.d("Error im ViewModel","${selectedCharacterImage.value}")
+                Log.d("GETQUOTES001","${charListRequest.value}")
             }
         }
     }

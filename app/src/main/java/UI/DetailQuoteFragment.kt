@@ -46,6 +46,7 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
         val args = DetailQuoteFragmentArgs.fromBundle(requireArguments())
         val imageResource = args.imageID
+        val imageName = args.characterName
 
         viewModel.popupMenuCallback = this
 
@@ -53,10 +54,14 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
             binding.charPic01detail.setImageResource(imageResource)
         }
 
-        viewModel.getQuotesNumber("1")
+        viewModel.getQuotesNumber("1",imageName)
+
+        Log.d("CharTest002","${imageName}")
+
 
         binding.charPic01detail.setOnClickListener {
-            viewModel.getQuotesNumber("1")
+            viewModel.getQuotesNumber("1",imageName)
+            Log.d("imageName001","${imageName}")
         }
 
         viewModel.charListRequest.observe(viewLifecycleOwner) { charList ->

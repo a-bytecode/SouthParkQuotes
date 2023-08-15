@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 private const val BASE_URL = "https://southparkquotes.onrender.com/"
@@ -33,6 +34,9 @@ interface SouthParkApiServiceQNumber { // Api Call für die Anzahl der quotes.
 
     @GET("v1/quotes/{number}")
     suspend fun getQuotesNumbers(@Path("number") format: String): List<Character>
+
+    @GET("v1/quotes/search/{searchTerm}")
+    suspend fun getCharacterAndQuotes(@Query("searchTerm") characterName: String) : List<Character>
 
     object UserApi {
         val retrofitService: SouthParkApiServiceQNumber by lazy {

@@ -1,11 +1,13 @@
 package remote
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.southparkquotes.R
 import model.Character
 
-class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private val charApi : SPQuotesApiByCharacters.UserApi) {
+
+class Repository(private val api: SouthParkApiServiceQNumber.UserApi) {
 
     var charPick = 0
 
@@ -20,30 +22,29 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
     val characterListResponse : LiveData<List<Character>>
         get() = _characterListResponse
 
-    private var _characterImageResponse = MutableLiveData<List<Character>>()
-    val characterImageResponse : LiveData<List<Character>>
-        get() = _characterImageResponse
-
     private val _selectedCharacterName = MutableLiveData<String>()
     val selectedCharacterName : LiveData<String>
         get() = _selectedCharacterName
 
-    suspend fun getQuotesNumber(number : String) {
+    suspend fun getQuotesNumber(number : String, name:String) {
         try {
             val responseCharList = api.retrofitService.getQuotesNumbers(number)
+            val responseImageNameList = api.retrofitService.getCharacterAndQuotes(name)
             _characterListResponse.value = responseCharList
+            if (responseImageNameList.isNotEmpty()) {
+                val characterName = responseImageNameList[0].name
+                _selectedCharacterName.postValue(characterName)
+                Log.d("Repository004", _selectedCharacterName.value ?: "Nix")
+            }
+
         } catch (e:Exception) {
             e.printStackTrace()
         }
     }
 
-    suspend fun getCharacterImage(characterName: String) {
-        try {
-            val responseCharImage = charApi.retrofitService.getCharacters(characterName)
-            _characterImageResponse.value = responseCharImage
-            _selectedCharacterName.value = characterName
-        } catch (e:Exception) {
-            e.printStackTrace()
-        }
+    fun setSelectedCharacterName(newName: String) {
+        _selectedCharacterName.postValue(newName)
+        Log.d("Repository003", newName)
+
     }
 }
