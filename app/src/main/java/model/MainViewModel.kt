@@ -1,14 +1,27 @@
 package model
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
+import android.os.Build
 import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.*
 import remote.Repository
 import remote.SPQuotesApiByCharacters
@@ -29,6 +42,8 @@ class MainViewModel : ViewModel() {
     var selectedCharacterImage = repo.characterImageResponse
 
     val selectedCharacterName = repo.selectedCharacterName
+
+    var popupMenuCallback: PopupMenuCallback? = null
 
     var selectedImageResource: Int = R.drawable.stan_marsh_0 // Hier Standardwert einsetzen
 
@@ -141,5 +156,40 @@ class MainViewModel : ViewModel() {
                 Log.d("Error im ViewModel","${selectedCharacterImage.value}")
             }
         }
+    }
+
+    fun handlePopupMenuAction(actionId: Int,context: Context, callback: PopupMenuCallback) {
+        when (actionId) {
+            R.id.pop_up_menu_home -> {
+               popupMenuCallback?.navigateToHome()
+            }
+            R.id.pop_up_menu_settings -> {
+                // TODO: Implementiere die Einstellungen
+            }
+            R.id.pop_up_menu_end -> {
+                val alertDialog = createEndDialog(context,callback)
+                alertDialog.show()
+            }
+        }
+    }
+
+    fun createEndDialog(context: Context,callback: PopupMenuCallback): AlertDialog {
+        return AlertDialog.Builder(context)
+            .setTitle("Beenden")
+            .setMessage("App wirklich Beenden?")
+            .setIcon(R.drawable.ic_baseline_exit_to_app_24)
+            .setCancelable(true)
+            .setNegativeButton("Nein") { _, _ ->
+                callback.navigateToSelf()
+            }
+            .setPositiveButton("Ja") { _, _ ->
+                (context as? Activity)?.finish()
+            }
+            .create()
+    }
+
+    interface PopupMenuCallback {
+        fun navigateToHome()
+        fun navigateToSelf()
     }
 }
