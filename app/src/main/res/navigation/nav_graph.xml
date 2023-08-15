@@ -56,5 +56,8 @@
         <argument
             android:name="characterName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_detailQuoteFragment_self"
+            app:destination="@id/detailQuoteFragment" />
     </fragment>
 </navigation>
