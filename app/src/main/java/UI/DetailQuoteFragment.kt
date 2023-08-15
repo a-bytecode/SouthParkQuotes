@@ -2,39 +2,43 @@ package UI
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.DetailquoteFragmentBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import model.MainViewModel
 
-class DetailQuoteFragment : Fragment() {
+class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
     private lateinit var binding: DetailquoteFragmentBinding
 
     private val viewModel: MainViewModel by activityViewModels()
-
-    private val args: DetailQuoteFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = DetailquoteFragmentBinding.inflate(inflater, container, false)
         return binding.root
+    }
 
+    override fun navigateToHome() {
+        findNavController().navigate(DetailQuoteFragmentDirections.actionDetailQuoteFragmentToHomeFragment())
+    }
+
+    override fun navigateToSelf() {
+        findNavController().navigate(DetailQuoteFragmentDirections.actionDetailQuoteFragmentSelf(
+            viewModel.selectedImageResource,viewModel.selectedImageResource.toString())
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -42,6 +46,8 @@ class DetailQuoteFragment : Fragment() {
 
         val args = DetailQuoteFragmentArgs.fromBundle(requireArguments())
         val imageResource = args.imageID
+
+        viewModel.popupMenuCallback = this
 
         if (imageResource != 0) {
             binding.charPic01detail.setImageResource(imageResource)
@@ -56,6 +62,7 @@ class DetailQuoteFragment : Fragment() {
         viewModel.charListRequest.observe(viewLifecycleOwner) { charList ->
             val spQuote = charList[0].quote
             binding.detailSPQuote.text = spQuote
+            Log.d("CharTest001","${charList[0].name}")
         }
 
         binding.menubtng.setOnClickListener {
@@ -75,33 +82,10 @@ class DetailQuoteFragment : Fragment() {
             inflater.inflate(R.menu.popup_menu, popupMenu.menu)
 
             popupMenu.setOnMenuItemClickListener {
-                when (it.itemId) {
-
-                    R.id.pop_up_menu_home -> {
-                        findNavController().navigate(DetailQuoteFragmentDirections.actionDetailQuoteFragmentToHomeFragment())
-                    }
-
-                    R.id.pop_up_menu_settings -> {
-                        // TODO´s: Settings Screen implementieren: Audio Files, Backgrounds
-                    }
-
-                    R.id.pop_up_menu_end -> {
-                        fun showEndDialog() {
-                            MaterialAlertDialogBuilder(requireContext())
-                                .setTitle("Beenden")
-                                .setMessage("App wirklich Beenden?")
-                                .setIcon(R.drawable.ic_baseline_exit_to_app_24)
-                                .setCancelable(true)
-                                .setNegativeButton("Nein") { _, _ ->
-                                    findNavController().navigate(R.id.action_detailQuoteFragment_self)
-                                }
-                                .setPositiveButton("Ja") { _, _ ->
-                                    activity?.finish()
-                                }
-                                .show()
-                        }
-                        showEndDialog()
-                    }
+                viewModel.popupMenuCallback?.let { it1 ->
+                    viewModel.handlePopupMenuAction(it.itemId,requireContext(),
+                        it1
+                    )
                 }
                 true
             }
@@ -112,7 +96,6 @@ class DetailQuoteFragment : Fragment() {
             popupMenu.show()
 
         } else {
-
             val wrapper = ContextThemeWrapper(requireContext(), R.style.popupMenuStyle)
             val popupMenu = PopupMenu(wrapper, view)
             val inflater = popupMenu.menuInflater
@@ -127,34 +110,10 @@ class DetailQuoteFragment : Fragment() {
             popupMenu.setForceShowIcon(true)
 
             popupMenu.setOnMenuItemClickListener {
-                when (it.itemId) {
-
-
-                    R.id.pop_up_menu_home -> {
-                        findNavController().navigate(DetailQuoteFragmentDirections.actionDetailQuoteFragmentToHomeFragment())
-                    }
-
-                    R.id.pop_up_menu_settings -> {
-                        // TODO´s: Settings Screen implementieren: Audio Files, Backgrounds
-                    }
-
-                    R.id.pop_up_menu_end -> {
-                        fun showEndDialog() {
-                            MaterialAlertDialogBuilder(requireContext())
-                                .setTitle("Beenden")
-                                .setMessage("App wirklich Beenden?")
-                                .setIcon(R.drawable.ic_baseline_exit_to_app_24)
-                                .setCancelable(true)
-                                .setNegativeButton("Nein") { _, _ ->
-                                    findNavController().navigate(R.id.action_detailQuoteFragment_self)
-                                }
-                                .setPositiveButton("Ja") { _, _ ->
-                                    activity?.finish()
-                                }
-                                .show()
-                        }
-                        showEndDialog()
-                    }
+                viewModel.popupMenuCallback?.let { it1 ->
+                    viewModel.handlePopupMenuAction(it.itemId,requireContext(),
+                        it1
+                    )
                 }
                 true
             }
