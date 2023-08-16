@@ -26,7 +26,7 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi) {
     val selectedCharacterName : LiveData<String>
         get() = _selectedCharacterName
 
-    suspend fun getQuotesNumber(number : String, name:String) {
+    suspend fun getQuotesResponse(number : String, name:String) {
         try {
             val responseCharList = api.retrofitService.getQuotesNumbers(number)
             val responseImageNameList = api.retrofitService.getCharacterAndQuotes(name)

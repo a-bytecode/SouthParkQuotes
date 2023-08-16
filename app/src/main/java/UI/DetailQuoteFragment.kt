@@ -54,13 +54,13 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
             binding.charPic01detail.setImageResource(imageResource)
         }
 
-        viewModel.getQuotesNumber("1",imageName)
+        viewModel.getQuotesResponse("1",imageName)
 
         Log.d("CharTest002","${imageName}")
 
 
         binding.charPic01detail.setOnClickListener {
-            viewModel.getQuotesNumber("1",imageName)
+            viewModel.getQuotesResponse("1",imageName)
             Log.d("imageName001","${imageName}")
         }
 
@@ -99,8 +99,8 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
             }
             // Show the popup menu.
             popupMenu.show()
-
         } else {
+
             val wrapper = ContextThemeWrapper(requireContext(), R.style.popupMenuStyle)
             val popupMenu = PopupMenu(wrapper, view)
             val inflater = popupMenu.menuInflater
@@ -128,6 +128,5 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
             // Show the popup menu.
             popupMenu.show()
         }
-
     }
 }

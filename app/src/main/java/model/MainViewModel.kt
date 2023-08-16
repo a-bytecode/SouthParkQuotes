@@ -8,8 +8,6 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModel
@@ -42,7 +40,7 @@ class MainViewModel : ViewModel() {
             selectedImageResource = it
             val characterName = repo.charList[repo.charPick].name
             repo.setSelectedCharacterName(characterName)
-            getQuotesNumber("1",characterName)
+            getQuotesResponse("1",characterName)
         }
      }
 
@@ -55,7 +53,7 @@ class MainViewModel : ViewModel() {
             selectedImageResource = it
             val characterName = repo.charList[repo.charPick].name
             repo.setSelectedCharacterName(characterName)
-            getQuotesNumber("1",characterName)
+            getQuotesResponse("1",characterName)
           }
      }
 
@@ -123,10 +121,10 @@ class MainViewModel : ViewModel() {
         input.visibility = View.GONE
     }
 
-    fun getQuotesNumber(number:String, name: String) {
+    fun getQuotesResponse(number:String, name: String) {
         viewModelScope.launch {
             try {
-                repo.getQuotesNumber(number, name)
+                repo.getQuotesResponse(number, name)
                 Log.d("GETQUOTES001","${name}")
 
             } catch(e:Exception) {
