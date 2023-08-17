@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.DetailquoteFragmentBinding
 import model.MainViewModel
+import remote.Repository
 
 class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
@@ -22,11 +23,14 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
     private val viewModel: MainViewModel by activityViewModels()
 
+    private lateinit var repo : Repository
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        repo = viewModel.repo
         binding = DetailquoteFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,24 +54,30 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
         viewModel.popupMenuCallback = this
 
+        var firstQuoteLoaded = false
+
         if (imageResource != 0) {
             binding.charPic01detail.setImageResource(imageResource)
         }
 
-        viewModel.getQuotesResponse("1",imageName)
-
+        viewModel.getQuotesResponse(imageName.lowercase())
         Log.d("CharTest002","${imageName}")
 
 
         binding.charPic01detail.setOnClickListener {
-            viewModel.getQuotesResponse("1",imageName)
+            viewModel.getQuotesResponse(imageName.lowercase())
+            val nextQuote = viewModel.getNextQuote(binding.detailSPQuote)
+            if (nextQuote != null) {
+                binding.detailSPQuote.text = nextQuote
+            }
             Log.d("imageName001","${imageName}")
         }
 
-        viewModel.charListRequest.observe(viewLifecycleOwner) { charList ->
-            val spQuote = charList[0].quote
-            binding.detailSPQuote.text = spQuote
-            Log.d("CharTest001","${charList[0].name}")
+        viewModel.characterNameLiveData.observe(viewLifecycleOwner) { quotesList ->
+            if (!firstQuoteLoaded && quotesList.isNotEmpty()) {
+                binding.detailSPQuote.text = quotesList[0].quote // Zeige den ersten Quote an
+                firstQuoteLoaded = true
+            }
         }
 
         binding.menubtng.setOnClickListener {

@@ -18,33 +18,18 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi) {
 
     var charList = mutableListOf(stan,kyle,butters,cartman)
 
-    private var _characterListResponse = MutableLiveData<List<Character>>()
-    val characterListResponse : LiveData<List<Character>>
-        get() = _characterListResponse
-
-    private val _selectedCharacterName = MutableLiveData<String>()
-    val selectedCharacterName : LiveData<String>
+    private val _selectedCharacterName = MutableLiveData<List<Character>>()
+    val selectedCharacterName : LiveData<List<Character>>
         get() = _selectedCharacterName
 
-    suspend fun getQuotesResponse(number : String, name:String) {
+    suspend fun getQuotesResponse(name:String) {
         try {
-            val responseCharList = api.retrofitService.getQuotesNumbers(number)
             val responseImageNameList = api.retrofitService.getCharacterAndQuotes(name)
-            _characterListResponse.value = responseCharList
-            if (responseImageNameList.isNotEmpty()) {
-                val characterName = responseImageNameList[0].name
-                _selectedCharacterName.postValue(characterName)
-                Log.d("Repository004", _selectedCharacterName.value ?: "Nix")
-            }
+                _selectedCharacterName.value = responseImageNameList
+                Log.d("Repository004", "Size of List -> ${selectedCharacterName.value?.size?: 0}")
 
         } catch (e:Exception) {
             e.printStackTrace()
         }
-    }
-
-    fun setSelectedCharacterName(newName: String) {
-        _selectedCharacterName.postValue(newName)
-        Log.d("Repository003", newName)
-
     }
 }
