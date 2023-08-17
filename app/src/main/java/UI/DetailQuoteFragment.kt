@@ -54,6 +54,8 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
         viewModel.popupMenuCallback = this
 
+        var firstQuoteLoaded = false
+
         if (imageResource != 0) {
             binding.charPic01detail.setImageResource(imageResource)
         }
@@ -64,14 +66,17 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
         binding.charPic01detail.setOnClickListener {
             viewModel.getQuotesResponse(imageName.lowercase())
+            val nextQuote = viewModel.getNextQuote(binding.detailSPQuote)
+            if (nextQuote != null) {
+                binding.detailSPQuote.text = nextQuote
+            }
             Log.d("imageName001","${imageName}")
         }
 
-        repo.selectedCharacterName.observe(viewLifecycleOwner) { charList ->
-            if (charList != null && charList.isNotEmpty()) {
-                val spQuote = charList[0].quote
-                binding.detailSPQuote.text = spQuote
-                Log.d("CharTest001", "Size of List = ${charList.size}")
+        viewModel.characterNameLiveData.observe(viewLifecycleOwner) { quotesList ->
+            if (!firstQuoteLoaded && quotesList.isNotEmpty()) {
+                binding.detailSPQuote.text = quotesList[0].quote // Zeige den ersten Quote an
+                firstQuoteLoaded = true
             }
         }
 

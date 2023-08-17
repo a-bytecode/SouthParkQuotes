@@ -33,6 +33,27 @@ class MainViewModel : ViewModel() {
 
     var currentQuoteIndex = 0 // Für das vor-Schalten der Quotes.
 
+    fun getNextQuote(quoteTextView: TextView): String? {
+        val quotesList = characterNameLiveData.value
+
+        if (quotesList != null && quotesList.isNotEmpty()) {
+            if (currentQuoteIndex < quotesList.size - 1) {
+                currentQuoteIndex++
+            } else {
+                currentQuoteIndex = 0 // Wenn das Ende erreicht ist, setze auf 0 zurück
+            }
+
+            val nextQuote = quotesList[currentQuoteIndex].quote
+            quoteTextView.text = nextQuote // Aktualisiere die TextView mit dem nächsten Zitat
+
+            Log.d("GETQUOTES002", "${currentQuoteIndex}")
+            return nextQuote
+        }
+
+        return null
+    }
+
+
     fun switchCharactersLeft(imageView: ImageView, myTextView: TextView) {
 
         repo.charPick = (repo.charPick +1) % repo.charList.size
@@ -68,6 +89,8 @@ class MainViewModel : ViewModel() {
                 }
             }
         }
+
+
 
 
     fun addNumber(editNumber: EditText) {
