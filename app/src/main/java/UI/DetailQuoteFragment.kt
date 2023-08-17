@@ -1,5 +1,6 @@
 package UI
 
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.DetailquoteFragmentBinding
+import model.ApiStatus
 import model.MainViewModel
 import remote.Repository
 
@@ -63,6 +65,20 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
         viewModel.getQuotesResponse(imageName.lowercase())
         Log.d("CharTest002","${imageName}")
 
+        viewModel.apiStatus.observe(viewLifecycleOwner) {
+
+            when(it) {
+                ApiStatus.LOADING -> {
+                    binding.cardViewDetail.visibility = View.GONE
+                }
+                ApiStatus.START -> {
+                    binding.cardViewDetail.visibility = View.VISIBLE
+                }
+                ApiStatus.ERROR -> {
+                    binding.cardViewDetail.visibility = View.GONE
+                }
+            }
+        }
 
         binding.charPic01detail.setOnClickListener {
             viewModel.getQuotesResponse(imageName.lowercase())
@@ -77,6 +93,7 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
             if (!firstQuoteLoaded && quotesList.isNotEmpty()) {
                 binding.detailSPQuote.text = quotesList[0].quote // Zeige den ersten Quote an
                 firstQuoteLoaded = true
+                Log.d("imageName004","${quotesList[0].name}")
             }
         }
 

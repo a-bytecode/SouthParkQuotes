@@ -27,6 +27,7 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi) {
             val responseImageNameList = api.retrofitService.getCharacterAndQuotes(name)
                 _selectedCharacterName.value = responseImageNameList
                 Log.d("Repository004", "Size of List -> ${selectedCharacterName.value?.size?: 0}")
+                Log.d("Repository005", "Full List -> ${selectedCharacterName.value}")
 
         } catch (e:Exception) {
             e.printStackTrace()

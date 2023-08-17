@@ -12,6 +12,17 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_v2">
 
+        <ImageView
+            android:id="@+id/backgroundIV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/b2" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewDetail"
             android:layout_width="0dp"
