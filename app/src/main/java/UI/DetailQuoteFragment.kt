@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.DetailquoteFragmentBinding
 import model.MainViewModel
+import remote.Repository
 
 class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
@@ -22,11 +23,14 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
     private val viewModel: MainViewModel by activityViewModels()
 
+    private lateinit var repo : Repository
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        repo = viewModel.repo
         binding = DetailquoteFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -54,20 +58,21 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
             binding.charPic01detail.setImageResource(imageResource)
         }
 
-        viewModel.getQuotesResponse("1",imageName)
-
+        viewModel.getQuotesResponse(imageName.lowercase())
         Log.d("CharTest002","${imageName}")
 
 
         binding.charPic01detail.setOnClickListener {
-            viewModel.getQuotesResponse("1",imageName)
+            viewModel.getQuotesResponse(imageName.lowercase())
             Log.d("imageName001","${imageName}")
         }
 
-        viewModel.charListRequest.observe(viewLifecycleOwner) { charList ->
-            val spQuote = charList[0].quote
-            binding.detailSPQuote.text = spQuote
-            Log.d("CharTest001","${charList[0].name}")
+        repo.selectedCharacterName.observe(viewLifecycleOwner) { charList ->
+            if (charList != null && charList.isNotEmpty()) {
+                val spQuote = charList[0].quote
+                binding.detailSPQuote.text = spQuote
+                Log.d("CharTest001", "Size of List = ${charList.size}")
+            }
         }
 
         binding.menubtng.setOnClickListener {

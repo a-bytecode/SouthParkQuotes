@@ -25,13 +25,15 @@ class MainViewModel : ViewModel() {
 
     val characterNameLiveData = repo.selectedCharacterName // Aktualisierung des Namens durch Mutable Live Data
 
-    val charListRequest = repo.characterListResponse
+//    val charListRequest = repo.characterListResponse
 
     var popupMenuCallback: PopupMenuCallback? = null
 
     var selectedImageResource: Int = R.drawable.stan_marsh_0 // Hier Standardwert einsetzen
 
-    fun switchCharactersLeft(imageView: ImageView) {
+    var currentQuoteIndex = 0 // Für das vor-Schalten der Quotes.
+
+    fun switchCharactersLeft(imageView: ImageView, myTextView: TextView) {
 
         repo.charPick = (repo.charPick +1) % repo.charList.size
 
@@ -39,12 +41,12 @@ class MainViewModel : ViewModel() {
             imageView.setImageResource(it)
             selectedImageResource = it
             val characterName = repo.charList[repo.charPick].name
-            repo.setSelectedCharacterName(characterName)
-            getQuotesResponse("1",characterName)
+            updateCharacterName(characterName,myTextView)
+            getQuotesResponse(characterName)
         }
      }
 
-    fun switchCharactersRight(imageView: ImageView) {
+    fun switchCharactersRight(imageView: ImageView, myTextView: TextView) {
 
         repo.charPick = (repo.charPick - 1 + repo.charList.size) % repo.charList.size
 
@@ -52,27 +54,26 @@ class MainViewModel : ViewModel() {
             imageView.setImageResource(it)
             selectedImageResource = it
             val characterName = repo.charList[repo.charPick].name
-            repo.setSelectedCharacterName(characterName)
-            getQuotesResponse("1",characterName)
+            updateCharacterName(characterName,myTextView)
+            getQuotesResponse(characterName)
           }
      }
 
-    fun updateCharacterName(newName: String) {
-            for (character in repo.charList) {
+    fun updateCharacterName(name: String, myTextView: TextView) {
 
-                if (character.name == newName) {
-                    repo.setSelectedCharacterName(newName)
+            for (character in repo.charList) {
+                if (character.name == name) {
+                    myTextView.text = character.name
                     break
                 }
             }
+        }
 
-    }
 
     fun addNumber(editNumber: EditText) {
 
-        val currentNumber = editNumber.text.toString().toIntOrNull() ?: 1 // Elvis-Operator,
-        // wenn der Anfangswert keine gültige Zahl hat oder null ist wird er Automatisch auf
-        // eine 1 gesetzt.
+        val currentNumber = editNumber.text.toString().toIntOrNull() ?: 1 // Elvis-Operator
+
         val newNumber = currentNumber +1
 
         if (newNumber >= 5) {
@@ -84,9 +85,8 @@ class MainViewModel : ViewModel() {
 
     fun subNumber(editNumber: EditText) {
 
-        val currentNumber = editNumber.text.toString().toIntOrNull() ?: 1 // Elvis-Operator,
-        // wenn der Anfangswert keine gültige Zahl hat oder null ist wird er Automatisch auf
-        // eine 1 gesetzt.
+        val currentNumber = editNumber.text.toString().toIntOrNull() ?: 1 // Elvis-Operator
+
         val newNumber = currentNumber -1
 
         if (newNumber <= 0) {
@@ -121,14 +121,14 @@ class MainViewModel : ViewModel() {
         input.visibility = View.GONE
     }
 
-    fun getQuotesResponse(number:String, name: String) {
+    fun getQuotesResponse(name: String) {
         viewModelScope.launch {
             try {
-                repo.getQuotesResponse(number, name)
-                Log.d("GETQUOTES001","${name}")
+                repo.getQuotesResponse(name)
+                Log.d("GETQUOTES001", "${name}")
 
-            } catch(e:Exception) {
-                Log.d("GETQUOTES001","${charListRequest.value}")
+            } catch (e: Exception) {
+                Log.d("GETQUOTES001", "${characterNameLiveData.value}")
             }
         }
     }

@@ -45,21 +45,17 @@ class MenuFragment : Fragment() {
 
         repo.charList[repo.charPick].imageResource?.let { needImageView.setImageResource(it) }
 
-        viewModel.updateCharacterName(repo.charList[repo.charPick].name)
-
-        viewModel.characterNameLiveData.observe(viewLifecycleOwner) { newName ->
-            binding.nameTV.text = newName
-        }
+        viewModel.updateCharacterName(repo.charList[repo.charPick].name,binding.nameTV)
 
         binding.leftIV.setOnClickListener {
 
-            viewModel.switchCharactersLeft(needImageView)
+            viewModel.switchCharactersLeft(needImageView,binding.nameTV)
 
         }
 
         binding.rightIV.setOnClickListener {
 
-            viewModel.switchCharactersRight(needImageView)
+            viewModel.switchCharactersRight(needImageView,binding.nameTV)
 
         }
 
@@ -76,7 +72,7 @@ class MenuFragment : Fragment() {
             val selectedCharacter = repo.selectedCharacterName.value ?: "Nix"
             findNavController().navigate(
                 MenuFragmentDirections.actionMenuFragmentToQuotesMenuFragment(
-                    viewModel.selectedImageResource, selectedCharacter
+                    viewModel.selectedImageResource, selectedCharacter.toString()
 
                 )
             )

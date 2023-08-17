@@ -36,7 +36,9 @@ interface SouthParkApiServiceQNumber { // Api Call für die Anzahl der quotes.
     suspend fun getQuotesNumbers(@Path("number") format: String): List<Character>
 
     @GET("v1/quotes/search/{searchTerm}")
-    suspend fun getCharacterAndQuotes(@Query("searchTerm") characterName: String) : List<Character>
+    suspend fun getCharacterAndQuotes(@Path("searchTerm") term: String) : List<Character>
+
+    // TODO: Austesten ob dieser Getter auch funktioniert. Mitnehmen bis in das Detailfragment. -> -> ->
 
     object UserApi {
         val retrofitService: SouthParkApiServiceQNumber by lazy {
