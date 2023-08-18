@@ -1,5 +1,6 @@
 package UI
 
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -14,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.DetailquoteFragmentBinding
+import model.ApiStatus
 import model.MainViewModel
 import remote.Repository
 
@@ -56,6 +59,8 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
         var firstQuoteLoaded = false
 
+        val animation = AnimationUtils.loadAnimation(requireContext(),R.anim.circle_animation)
+
         if (imageResource != 0) {
             binding.charPic01detail.setImageResource(imageResource)
         }
@@ -63,6 +68,26 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
         viewModel.getQuotesResponse(imageName.lowercase())
         Log.d("CharTest002","${imageName}")
 
+        viewModel.apiStatus.observe(viewLifecycleOwner) {
+            when(it) {
+                ApiStatus.LOADING -> {
+                    binding.cardViewDetail.visibility = View.GONE
+                    binding.mrHankeyIV.startAnimation(animation)
+                    binding.mrHankeyIV.visibility = View.VISIBLE
+                }
+                ApiStatus.START -> {
+                    binding.cardViewDetail.visibility = View.VISIBLE
+                    binding.mrHankeyIV.visibility = View.GONE
+                    binding.mrHankeyIV.animation.cancel()
+
+                }
+                ApiStatus.ERROR -> {
+                    binding.cardViewDetail.visibility = View.GONE
+                    binding.mrHankeyIV.visibility = View.VISIBLE
+                    binding.mrHankeyIV.startAnimation(animation)
+                }
+            }
+        }
 
         binding.charPic01detail.setOnClickListener {
             viewModel.getQuotesResponse(imageName.lowercase())
@@ -77,6 +102,7 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
             if (!firstQuoteLoaded && quotesList.isNotEmpty()) {
                 binding.detailSPQuote.text = quotesList[0].quote // Zeige den ersten Quote an
                 firstQuoteLoaded = true
+                Log.d("imageName004","${quotesList[0].name}")
             }
         }
 

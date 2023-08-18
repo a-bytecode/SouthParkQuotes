@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModel
@@ -17,15 +19,20 @@ import kotlinx.coroutines.*
 import remote.Repository
 import remote.SouthParkApiServiceQNumber
 
+enum class ApiStatus { START, LOADING, ERROR }
+
 class MainViewModel : ViewModel() {
 
     var api = SouthParkApiServiceQNumber.UserApi
 
     var repo = Repository(api)
 
-    val characterNameLiveData = repo.selectedCharacterName // Aktualisierung des Namens durch Mutable Live Data
 
-//    val charListRequest = repo.characterListResponse
+    private var _apiStatus = MutableLiveData<ApiStatus>()
+    val apiStatus : LiveData<ApiStatus>
+        get() = _apiStatus
+
+    val characterNameLiveData = repo.selectedCharacterName // Aktualisierung des Namens durch Mutable Live Data
 
     var popupMenuCallback: PopupMenuCallback? = null
 
@@ -147,10 +154,12 @@ class MainViewModel : ViewModel() {
     fun getQuotesResponse(name: String) {
         viewModelScope.launch {
             try {
+                _apiStatus.value = ApiStatus.LOADING
                 repo.getQuotesResponse(name)
                 Log.d("GETQUOTES001", "${name}")
-
+                _apiStatus.value = ApiStatus.START
             } catch (e: Exception) {
+                _apiStatus.value = ApiStatus.ERROR
                 Log.d("GETQUOTES001", "${characterNameLiveData.value}")
             }
         }

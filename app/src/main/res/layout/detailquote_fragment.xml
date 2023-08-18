@@ -12,6 +12,32 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_v2">
 
+        <ImageView
+            android:id="@+id/backgroundIV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/b2" />
+
+        <ImageView
+            android:id="@+id/mrHankeyIV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="190dp"
+            app:layout_constraintBottom_toTopOf="@+id/charPic01detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/mr__hankey_transparent" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewDetail"
             android:layout_width="0dp"
@@ -21,6 +47,7 @@
             android:layout_marginEnd="60dp"
             android:background="@drawable/speakbubboleshape"
             android:elevation="20dp"
+            android:visibility="gone"
             app:cardCornerRadius="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
