@@ -8,6 +8,7 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -58,6 +59,8 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
         var firstQuoteLoaded = false
 
+        val animation = AnimationUtils.loadAnimation(requireContext(),R.anim.circle_animation)
+
         if (imageResource != 0) {
             binding.charPic01detail.setImageResource(imageResource)
         }
@@ -66,16 +69,22 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
         Log.d("CharTest002","${imageName}")
 
         viewModel.apiStatus.observe(viewLifecycleOwner) {
-
             when(it) {
                 ApiStatus.LOADING -> {
                     binding.cardViewDetail.visibility = View.GONE
+                    binding.mrHankeyIV.startAnimation(animation)
+                    binding.mrHankeyIV.visibility = View.VISIBLE
                 }
                 ApiStatus.START -> {
                     binding.cardViewDetail.visibility = View.VISIBLE
+                    binding.mrHankeyIV.visibility = View.GONE
+                    binding.mrHankeyIV.animation.cancel()
+
                 }
                 ApiStatus.ERROR -> {
                     binding.cardViewDetail.visibility = View.GONE
+                    binding.mrHankeyIV.visibility = View.VISIBLE
+                    binding.mrHankeyIV.startAnimation(animation)
                 }
             }
         }
