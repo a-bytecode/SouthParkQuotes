@@ -59,6 +59,7 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
         var firstQuoteLoaded = false
 
+        // TODO: Animation für Mr. Hanky als Ladebild einfügen.
         val animation = AnimationUtils.loadAnimation(requireContext(),R.anim.circle_animation)
 
         if (imageResource != 0) {
@@ -72,19 +73,13 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
             when(it) {
                 ApiStatus.LOADING -> {
                     binding.cardViewDetail.visibility = View.GONE
-                    binding.mrHankeyIV.startAnimation(animation)
-                    binding.mrHankeyIV.visibility = View.VISIBLE
                 }
                 ApiStatus.START -> {
                     binding.cardViewDetail.visibility = View.VISIBLE
-                    binding.mrHankeyIV.visibility = View.GONE
-                    binding.mrHankeyIV.animation.cancel()
 
                 }
                 ApiStatus.ERROR -> {
                     binding.cardViewDetail.visibility = View.GONE
-                    binding.mrHankeyIV.visibility = View.VISIBLE
-                    binding.mrHankeyIV.startAnimation(animation)
                 }
             }
         }
