@@ -1,6 +1,5 @@
-package UI
+package com.example.southparkquotes.UI
 
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -16,9 +15,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.DetailquoteFragmentBinding
-import model.ApiStatus
-import model.MainViewModel
-import remote.Repository
+import com.example.southparkquotes.model.ApiStatus
+import com.example.southparkquotes.model.MainViewModel
+import com.example.southparkquotes.remote.Repository
 
 class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
 
@@ -72,11 +71,10 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
         viewModel.apiStatus.observe(viewLifecycleOwner) {
             when(it) {
                 ApiStatus.LOADING -> {
-                    binding.cardViewDetail.visibility = View.GONE
+                    binding.cardViewDetail.visibility = View.VISIBLE
                 }
                 ApiStatus.START -> {
                     binding.cardViewDetail.visibility = View.VISIBLE
-
                 }
                 ApiStatus.ERROR -> {
                     binding.cardViewDetail.visibility = View.GONE

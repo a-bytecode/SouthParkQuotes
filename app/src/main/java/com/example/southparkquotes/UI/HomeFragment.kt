@@ -1,4 +1,4 @@
-package UI
+package com.example.southparkquotes.UI
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.databinding.HomeFragmentBinding
-import model.MainViewModel
+import com.example.southparkquotes.model.MainViewModel
 
 class HomeFragment : Fragment() {
 
@@ -23,6 +23,7 @@ class HomeFragment : Fragment() {
     ): View? {
 
         binding = HomeFragmentBinding.inflate(inflater)
+
         return binding.root
 
     }
@@ -35,5 +36,4 @@ class HomeFragment : Fragment() {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMenuFragment())
         }
      }
-
 }

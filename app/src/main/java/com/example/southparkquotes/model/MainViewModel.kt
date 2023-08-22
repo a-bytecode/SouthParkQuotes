@@ -1,38 +1,41 @@
-package model
+package com.example.southparkquotes.model
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.southparkquotes.R
+import com.example.southparkquotes.local.SPDatabase
 import kotlinx.coroutines.*
-import remote.Repository
-import remote.SouthParkApiServiceQNumber
-
+import com.example.southparkquotes.remote.Repository
+import com.example.southparkquotes.remote.SouthParkApiServiceQNumber
+ 
 enum class ApiStatus { START, LOADING, ERROR }
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+
+    val database = SPDatabase.createInstance(application)
 
     var api = SouthParkApiServiceQNumber.UserApi
 
-    var repo = Repository(api)
-
+    var repo = Repository(api,database)
 
     private var _apiStatus = MutableLiveData<ApiStatus>()
     val apiStatus : LiveData<ApiStatus>
         get() = _apiStatus
 
-    val characterNameLiveData = repo.selectedCharacterName // Aktualisierung des Namens durch Mutable Live Data
+    val characterNameLiveData = repo.selectedCharacterNameEntity // Aktualisierung des Namens durch Mutable Live Data
 
     var popupMenuCallback: PopupMenuCallback? = null
 
