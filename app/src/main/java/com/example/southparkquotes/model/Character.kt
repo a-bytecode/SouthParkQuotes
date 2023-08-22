@@ -1,7 +1,10 @@
-package model
+package com.example.southparkquotes.model
 
+import androidx.room.Entity
 import com.squareup.moshi.Json
 
+
+@Entity(primaryKeys = ["name"])
 data class Character(
 
     @Json(name = "character")

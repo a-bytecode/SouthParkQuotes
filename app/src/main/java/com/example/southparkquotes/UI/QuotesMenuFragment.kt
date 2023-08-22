@@ -1,18 +1,17 @@
-package UI
+package com.example.southparkquotes.UI
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.QuotesmenuFragmentBinding
-import model.MainViewModel
-import remote.Repository
+import com.example.southparkquotes.model.MainViewModel
+import com.example.southparkquotes.remote.Repository
 
 class QuotesMenuFragment: Fragment() {
 
@@ -57,7 +56,6 @@ class QuotesMenuFragment: Fragment() {
                     viewModel.selectedImageResource, selectedCharacter
                 )
             )
-
             Log.d("CharNameMenu",selectedCharacter)
         }
     }

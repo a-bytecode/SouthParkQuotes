@@ -1,20 +1,21 @@
-package UI
+package com.example.southparkquotes.UI
 
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.MenuFragmentBinding
-import model.MainViewModel
-import remote.Repository
-import remote.SouthParkApiServiceQNumber
+import com.example.southparkquotes.local.SPDatabase
+import com.example.southparkquotes.model.MainViewModel
+import com.example.southparkquotes.remote.Repository
+import com.example.southparkquotes.remote.SouthParkApiServiceQNumber
 
 class MenuFragment : Fragment() {
 
@@ -24,7 +25,9 @@ class MenuFragment : Fragment() {
 
     private val api = SouthParkApiServiceQNumber.UserApi
 
-    private val repo = Repository(api)
+    private val database = SPDatabase.createInstance(requireContext() as Application)
+
+    private val repo = Repository(api,database)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,7 +72,7 @@ class MenuFragment : Fragment() {
         binding.check2IV.setOnClickListener {
             val imageResource = repo.charList[repo.charPick].imageResource
             viewModel.selectedImageResource = imageResource ?: R.drawable.stan_marsh_0
-            val selectedCharacter = repo.selectedCharacterName.value ?: "Nix"
+            val selectedCharacter = repo.selectedCharacterNameEntity.value ?: "Nix"
             findNavController().navigate(
                 MenuFragmentDirections.actionMenuFragmentToQuotesMenuFragment(
                     viewModel.selectedImageResource, selectedCharacter.toString()

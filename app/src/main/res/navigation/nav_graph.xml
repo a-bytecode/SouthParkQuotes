@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="UI.HomeFragment"
+        android:name="com.example.southparkquotes.UI.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_menuFragment"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
-        android:name="UI.MenuFragment"
+        android:name="com.example.southparkquotes.UI.MenuFragment"
         android:label="MenuFragment" >
         <action
             android:id="@+id/action_menuFragment_to_homeFragment"
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/quotesMenuFragment"
-        android:name="UI.QuotesMenuFragment"
+        android:name="com.example.southparkquotes.UI.QuotesMenuFragment"
         android:label="QuotesMenuFragment" >
         <action
             android:id="@+id/action_quotesMenuFragment_to_homeFragment"
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailQuoteFragment"
-        android:name="UI.DetailQuoteFragment"
+        android:name="com.example.southparkquotes.UI.DetailQuoteFragment"
         android:label="DetailQuoteFragment" >
         <action
             android:id="@+id/action_detailQuoteFragment_to_homeFragment"
