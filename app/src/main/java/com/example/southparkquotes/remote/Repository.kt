@@ -8,7 +8,7 @@ import com.example.southparkquotes.local.SPDatabase
 import com.example.southparkquotes.model.Character
 
 
-class Repository(private val api: SouthParkApiServiceQNumber.UserApi, val database : SPDatabase) {
+class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private val database : SPDatabase) {
 
     val dB = database.spDatabaseDao
     val getAllDatabase = dB.getAll()
