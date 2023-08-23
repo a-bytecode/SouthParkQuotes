@@ -11,10 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.MenuFragmentBinding
-import com.example.southparkquotes.local.SPDatabase
 import com.example.southparkquotes.model.MainViewModel
-import com.example.southparkquotes.remote.Repository
-import com.example.southparkquotes.remote.SouthParkApiServiceQNumber
+
 
 class MenuFragment : Fragment() {
 
@@ -34,8 +32,6 @@ class MenuFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        // TODO: Tasten Einbinden & Übergabe-Argumente über den Navgraph einstellen.
 
         val needImageView = view.findViewById<ImageView>(R.id.characterIV)
 
