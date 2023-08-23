@@ -1,6 +1,5 @@
 package com.example.southparkquotes.UI
 
-import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,18 +22,12 @@ class MenuFragment : Fragment() {
 
     private val viewModel : MainViewModel by activityViewModels()
 
-    private val api = SouthParkApiServiceQNumber.UserApi
-
-    private val database = SPDatabase.createInstance(requireContext() as Application)
-
-    private val repo = Repository(api,database)
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        Log.d("MenuFragment", "onCreateView called")
         binding = MenuFragmentBinding.inflate(inflater)
         return binding.root
 
@@ -46,9 +39,9 @@ class MenuFragment : Fragment() {
 
         val needImageView = view.findViewById<ImageView>(R.id.characterIV)
 
-        repo.charList[repo.charPick].imageResource?.let { needImageView.setImageResource(it) }
+        viewModel.repo.charList[viewModel.repo.charPick].imageResource?.let { needImageView.setImageResource(it) }
 
-        viewModel.updateCharacterName(repo.charList[repo.charPick].name,binding.nameTV)
+        viewModel.updateCharacterName(viewModel.repo.charList[viewModel.repo.charPick].name,binding.nameTV)
 
         binding.leftIV.setOnClickListener {
 
@@ -70,9 +63,9 @@ class MenuFragment : Fragment() {
         }
 
         binding.check2IV.setOnClickListener {
-            val imageResource = repo.charList[repo.charPick].imageResource
+            val imageResource = viewModel.repo.charList[viewModel.repo.charPick].imageResource
             viewModel.selectedImageResource = imageResource ?: R.drawable.stan_marsh_0
-            val selectedCharacter = repo.selectedCharacterNameEntity.value ?: "Nix"
+            val selectedCharacter = viewModel.repo.selectedCharacterNameEntity.value ?: "Nix"
             findNavController().navigate(
                 MenuFragmentDirections.actionMenuFragmentToQuotesMenuFragment(
                     viewModel.selectedImageResource, selectedCharacter.toString()
