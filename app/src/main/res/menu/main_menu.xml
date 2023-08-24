@@ -1,60 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-<group android:checkableBehavior="single">
-
-    <item
-        android:id="@+id/nav_home"
-        android:title="Home"
-        android:icon="@drawable/ic_baseline_home_24"/>
-    <item
-        android:id="@+id/nav_setting"
-        android:title="Home"
-        android:icon="@drawable/ic_baseline_settings_24" />
-    <item
-        android:id="@+id/nav_end"
-        android:title="Home"
-        android:icon="@drawable/ic_baseline_exit_to_app_24"/>
-</group>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <group android:checkableBehavior="single">
-
         <item
-             android:title="Home">
+            android:id="@+id/menu_home"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="menu_home" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="menu_gallery" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_baseline_exit_to_app_24"
+            android:title="menu_slideshow" />
 
-            <menu>
-                <item
-                    android:id="@+id/nav_home1"
-                    android:title="Home"
-                    android:icon="@drawable/ic_baseline_home_24"/>
-                <item
-                    android:id="@+id/nav_setting1"
-                    android:title="Home"
-                    android:icon="@drawable/ic_baseline_settings_24" />
-                <item
-                    android:id="@+id/nav_end1"
-                    android:title="Home"
-                    android:icon="@drawable/ic_baseline_exit_to_app_24"/>
-
-            </menu>
-
-        </item>
-     </group>
+    </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_home2"
-                android:title="Home"
-                android:icon="@drawable/ic_baseline_home_24"/>
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_baseline_home_24"
+                android:title="menu_share" />
             <item
-                android:id="@+id/nav_setting2"
-                android:title="Home"
-                android:icon="@drawable/ic_baseline_settings_24" />
-            <item
-                android:id="@+id/nav_end2"
-                android:title="Home"
-                android:icon="@drawable/ic_baseline_exit_to_app_24"/>
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:title="menu_send" />
         </menu>
     </item>
-
 </menu>
