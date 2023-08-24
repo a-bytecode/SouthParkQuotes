@@ -73,4 +73,6 @@ dependencies {
     kapt "androidx.room:room-compiler:2.5.2" // Annotation Processor
     implementation "androidx.room:room-ktx:2.5.2" // Room Coroutines Support
     implementation "org.xerial:sqlite-jdbc:3.36.0"
+
+
 }
