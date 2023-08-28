@@ -15,10 +15,10 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
 
     var charPick = 0
 
-    var stan = Character("Stan", R.drawable.stan_marsh_0, "Lets Rock it.")
-    var cartman = Character("Cartman", R.drawable.eric_cartman, "Lets Rock it.")
-    var kyle = Character("Kyle", R.drawable.kyle_broflovski, "Lets Rock it.")
-    var butters = Character("Butters", R.drawable.buttersstotch, "Lets Rock it.")
+    var stan = Character(0, "Stan", R.drawable.stan_marsh_0,"Lets Rock!")
+    var cartman = Character(1,"Cartman",R.drawable.eric_cartman,"Lets Rock!")
+    var kyle = Character(2,"Kyle",R.drawable.kyle_broflovski,"Lets Rock!")
+    var butters = Character(3, "Butters", R.drawable.buttersstotch,"Lets Rock!")
 
     var charList = mutableListOf(stan,kyle,butters,cartman)
 
@@ -28,11 +28,20 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
 
     suspend fun getQuotesResponse(name:String) {
         try {
+            dB.deleteAll()
+            dB.resetIdSequence()
             val responseImageNameList = api.retrofitService.getCharacterAndQuotes(name)
+            val newQuotes = responseImageNameList.filterNot { newQuote ->
+                getAllDatabase.value?.any { existingQuote ->
+                    existingQuote.id == newQuote.id || existingQuote.quote == newQuote.quote
+                } ?:false
+            }
+            if(newQuotes.isNotEmpty()) {
                 _selectedCharacterNameEntity.value = responseImageNameList
-                dB.insertCharacters(responseImageNameList)
-                Log.d("Repository004", "Size of List -> ${selectedCharacterNameEntity.value?.size?: 0}")
+                dB.insertCharacters(newQuotes)
+                Log.d("Repository004", "Size of List -> ${selectedCharacterNameEntity.value?.size ?: 0}")
                 Log.d("Repository005", "Full List -> ${selectedCharacterNameEntity.value}")
+            }
         } catch (e:Exception) {
             e.printStackTrace()
         }

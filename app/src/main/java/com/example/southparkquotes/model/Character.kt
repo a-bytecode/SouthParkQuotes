@@ -1,11 +1,14 @@
 package com.example.southparkquotes.model
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
 
-@Entity(primaryKeys = ["name"])
+@Entity(tableName = "characters")
 data class Character(
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0, // Eindeutige ID für die Entität, automatisch generiert
 
     @Json(name = "character")
     var name : String,
@@ -14,5 +17,4 @@ data class Character(
 
     @Json(name = "quote")
     var quote : String
-
 )
