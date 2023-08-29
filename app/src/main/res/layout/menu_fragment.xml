@@ -40,15 +40,14 @@
             android:id="@+id/characterIV"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="10dp"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toTopOf="@+id/linearLayoutDOWN"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutUPmenu"
-            tools:srcCompat="@drawable/stan_marsh_0" />
+            tools:srcCompat="@drawable/eric_cartman" />
 
         <LinearLayout
             android:id="@+id/linearLayoutDOWN"

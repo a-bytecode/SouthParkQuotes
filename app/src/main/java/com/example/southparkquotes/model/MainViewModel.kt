@@ -7,6 +7,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.AndroidViewModel
@@ -42,6 +43,28 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     var selectedImageResource: Int = R.drawable.stan_marsh_0 // Hier Standardwert einsetzen
 
     var currentQuoteIndex = 0 // Für das vor-Schalten der Quotes.
+
+    // TODO: Funktion für Anpassung des Character Images 326dp & 460dp
+    fun scaleImage(image : ImageView, newWidthDp: Int, newHeightDp: Int, context: Context) {
+        val newWidthInPixels = (newWidthDp * context.resources.displayMetrics.density).toInt()
+        val newHeightInPixels = (newHeightDp * context.resources.displayMetrics.density).toInt()
+
+        val layoutParams = image.layoutParams
+        layoutParams.width = newWidthInPixels
+        layoutParams.height = newHeightInPixels
+        image.layoutParams = layoutParams
+        Log.d("ERIC", "${image.tag} -> Aktuelles Image")
+    }
+
+    fun updateImageDimensions(image:ImageView,context: Context) {
+        val isEricCartmanImage = image.tag == repo.cartman.imageResource.toString()
+
+        val newWidthDp = if (isEricCartmanImage) 388 else 326
+        val newHeightDp = if (isEricCartmanImage) 531 else 460
+         if(isEricCartmanImage) {
+             scaleImage(image,newWidthDp,newHeightDp,context)
+         }
+    }
 
     fun getNextQuote(quoteTextView: TextView): String? {
         val quotesList = characterNameLiveData.value
