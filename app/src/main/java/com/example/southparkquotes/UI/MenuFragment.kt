@@ -37,9 +37,9 @@ class MenuFragment : Fragment() {
         val newWidthDp = 326
         val newHeightDp = 460
 
-        viewModel.scaleImage(needImageView,newWidthDp,newHeightDp,requireContext())
-
-        viewModel.updateImageDimensions(needImageView,requireContext())
+//        viewModel.scaleImage(needImageView,newWidthDp,newHeightDp,requireContext())
+//
+//        viewModel.updateImageDimensions(needImageView,requireContext())
 
         viewModel.repo.charList[viewModel.repo.charPick].imageResource?.let { needImageView.setImageResource(it) }
 

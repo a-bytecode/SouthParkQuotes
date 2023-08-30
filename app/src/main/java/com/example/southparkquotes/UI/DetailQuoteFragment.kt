@@ -99,63 +99,63 @@ class DetailQuoteFragment : Fragment(), MainViewModel.PopupMenuCallback  {
             }
         }
 
-        binding.menubtng.setOnClickListener {
-            showPopUp(binding.menubtng)
-        }
+//        binding.menubtng.setOnClickListener {
+//            showPopUp(binding.menubtng)
+//        }
     }
 
-    // Pop up Menu - - - -> Setup <- - - - Pop up Menu //
-
-    @RequiresApi(Build.VERSION_CODES.Q)
-    fun showPopUp(view: View) {
-        // Überprüfung der Android Version (SDK_INT) Verallgemeinert die Handy SDK
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
-            val wrapper = ContextThemeWrapper(requireContext(), R.style.popupMenuStyle)
-            val popupMenu = PopupMenu(wrapper, view)
-            val inflater = popupMenu.menuInflater
-            inflater.inflate(R.menu.popup_menu, popupMenu.menu)
-
-            popupMenu.setOnMenuItemClickListener {
-                viewModel.popupMenuCallback?.let { it1 ->
-                    viewModel.handlePopupMenuAction(it.itemId,requireContext(),
-                        it1
-                    )
-                }
-                true
-            }
-            popupMenu.setOnDismissListener {
-                // Respond to popup being dismissed.
-            }
-            // Show the popup menu.
-            popupMenu.show()
-        } else {
-
-            val wrapper = ContextThemeWrapper(requireContext(), R.style.popupMenuStyle)
-            val popupMenu = PopupMenu(wrapper, view)
-            val inflater = popupMenu.menuInflater
-            inflater.inflate(R.menu.popup_menu, popupMenu.menu)
-            popupMenu.menu.findItem(R.id.pop_up_menu_home)
-                .setIcon(R.drawable.ic_baseline_home_24)
-            popupMenu.menu.findItem(R.id.pop_up_menu_settings)
-                .setIcon(R.drawable.ic_baseline_settings_24)
-            popupMenu.menu.findItem(R.id.pop_up_menu_end)
-                .setIcon(R.drawable.ic_baseline_exit_to_app_24)
-
-            popupMenu.setForceShowIcon(true)
-
-            popupMenu.setOnMenuItemClickListener {
-                viewModel.popupMenuCallback?.let { it1 ->
-                    viewModel.handlePopupMenuAction(it.itemId,requireContext(),
-                        it1
-                    )
-                }
-                true
-            }
-            popupMenu.setOnDismissListener {
-                // Respond to popup being dismissed.
-            }
-            // Show the popup menu.
-            popupMenu.show()
-        }
-    }
+//    // Pop up Menu - - - -> Setup <- - - - Pop up Menu //
+//
+//    @RequiresApi(Build.VERSION_CODES.Q)
+//    fun showPopUp(view: View) {
+//        // Überprüfung der Android Version (SDK_INT) Verallgemeinert die Handy SDK
+//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+//            val wrapper = ContextThemeWrapper(requireContext(), R.style.popupMenuStyle)
+//            val popupMenu = PopupMenu(wrapper, view)
+//            val inflater = popupMenu.menuInflater
+//            inflater.inflate(R.menu.popup_menu, popupMenu.menu)
+//
+//            popupMenu.setOnMenuItemClickListener {
+//                viewModel.popupMenuCallback?.let { it1 ->
+//                    viewModel.handlePopupMenuAction(it.itemId,requireContext(),
+//                        it1
+//                    )
+//                }
+//                true
+//            }
+//            popupMenu.setOnDismissListener {
+//                // Respond to popup being dismissed.
+//            }
+//            // Show the popup menu.
+//            popupMenu.show()
+//        } else {
+//
+//            val wrapper = ContextThemeWrapper(requireContext(), R.style.popupMenuStyle)
+//            val popupMenu = PopupMenu(wrapper, view)
+//            val inflater = popupMenu.menuInflater
+//            inflater.inflate(R.menu.popup_menu, popupMenu.menu)
+//            popupMenu.menu.findItem(R.id.pop_up_menu_home)
+//                .setIcon(R.drawable.ic_baseline_home_24)
+//            popupMenu.menu.findItem(R.id.pop_up_menu_settings)
+//                .setIcon(R.drawable.ic_baseline_settings_24)
+//            popupMenu.menu.findItem(R.id.pop_up_menu_end)
+//                .setIcon(R.drawable.ic_baseline_exit_to_app_24)
+//
+//            popupMenu.setForceShowIcon(true)
+//
+//            popupMenu.setOnMenuItemClickListener {
+//                viewModel.popupMenuCallback?.let { it1 ->
+//                    viewModel.handlePopupMenuAction(it.itemId,requireContext(),
+//                        it1
+//                    )
+//                }
+//                true
+//            }
+//            popupMenu.setOnDismissListener {
+//                // Respond to popup being dismissed.
+//            }
+//            // Show the popup menu.
+//            popupMenu.show()
+//        }
+//    }
 }

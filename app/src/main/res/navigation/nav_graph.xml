@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_menuFragment_to_quotesMenuFragment"
             app:destination="@id/quotesMenuFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_detailQuoteFragment"
+            app:destination="@id/detailQuoteFragment" />
     </fragment>
     <fragment
         android:id="@+id/quotesMenuFragment"
