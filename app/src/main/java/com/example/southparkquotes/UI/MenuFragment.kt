@@ -34,6 +34,12 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val needImageView = view.findViewById<ImageView>(R.id.characterIV)
+        val newWidthDp = 326
+        val newHeightDp = 460
+
+        viewModel.scaleImage(needImageView,newWidthDp,newHeightDp,requireContext())
+
+        viewModel.updateImageDimensions(needImageView,requireContext())
 
         viewModel.repo.charList[viewModel.repo.charPick].imageResource?.let { needImageView.setImageResource(it) }
 
