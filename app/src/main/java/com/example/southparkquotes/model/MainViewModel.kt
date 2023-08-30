@@ -155,16 +155,28 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun anmitateTextView(inputText: TextView) {
 
         val text = inputText.text.toString()
-        val stringBuilder = java.lang.StringBuilder()
 
         GlobalScope.launch(Dispatchers.Default) {
+            while (true) {
+                val stringBuilder = java.lang.StringBuilder()
 
-            for (char in text) {
-                stringBuilder.append(char)
-                withContext(Dispatchers.Main) {
-                    inputText.text = stringBuilder.toString()
+                for (char in text) {
+                    stringBuilder.append(char)
+                    withContext(Dispatchers.Main) {
+                        inputText.text = stringBuilder.toString()
+                    }
+                    delay(300)
                 }
-                delay(300)
+                delay(1000)
+                for (i in text.length downTo 0) {
+                    val subString = text.substring(0,i)
+                    withContext(Dispatchers.Main) {
+                        inputText.text = subString
+                    }
+                    delay(100)
+                }
+                delay(1000)
+                inputText.text = ""
             }
         }
     }
