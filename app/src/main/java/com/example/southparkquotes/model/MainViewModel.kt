@@ -156,30 +156,41 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         val text = inputText.text.toString()
 
-        GlobalScope.launch(Dispatchers.Default) {
+        GlobalScope.launch(Dispatchers.Main) {
             while (true) {
-                val stringBuilder = java.lang.StringBuilder()
-
-                for (char in text) {
-                    stringBuilder.append(char)
-                    withContext(Dispatchers.Main) {
-                        inputText.text = stringBuilder.toString()
-                    }
-                    delay(300)
-                }
+                animateText(inputText, text)
                 delay(1000)
-                for (i in text.length downTo 0) {
-                    val subString = text.substring(0,i)
-                    withContext(Dispatchers.Main) {
-                        inputText.text = subString
-                    }
-                    delay(100)
-                }
+                clearText(inputText, text)
                 delay(1000)
-                inputText.text = ""
             }
         }
     }
+
+    suspend fun animateText(textView: TextView, text: String) {
+        val stringBuilder = StringBuilder()
+
+        for (char in text) {
+            stringBuilder.append(char)
+            withContext(Dispatchers.Main) {
+                textView.text = stringBuilder.toString()
+            }
+            delay(300)
+        }
+    }
+
+    suspend fun clearText(textView: TextView, text: String) {
+        for (i in text.length downTo 0) {
+            val subString = text.substring(0, i)
+            withContext(Dispatchers.Main) {
+                textView.text = subString
+            }
+            delay(100)
+        }
+        withContext(Dispatchers.Main) {
+            textView.text = "" // Text löschen
+        }
+    }
+
 
     fun setVisible(input: ImageView) {
         input.visibility = View.VISIBLE
