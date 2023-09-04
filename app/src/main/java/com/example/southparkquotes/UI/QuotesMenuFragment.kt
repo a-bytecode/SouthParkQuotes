@@ -51,11 +51,11 @@ class QuotesMenuFragment: Fragment() {
             val imageResource = repo.charList[repo.charPick].imageResource
             viewModel.selectedImageResource = imageResource ?: R.drawable.stan_marsh_0 // Standardwert einsetzen
             val selectedCharacter = repo.charList[repo.charPick].name
-            findNavController().navigate(
-                QuotesMenuFragmentDirections.actionQuotesMenuFragmentToDetailQuoteFragment(
-                    viewModel.selectedImageResource, selectedCharacter
-                )
-            )
+//            findNavController().navigate(
+//                QuotesMenuFragmentDirections.actionQuotesMenuFragmentToDetailQuoteFragment(
+//                    viewModel.selectedImageResource, selectedCharacter
+//                )
+//            )
             Log.d("CharNameMenu",selectedCharacter)
         }
     }

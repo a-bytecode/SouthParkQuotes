@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.MenuFragmentBinding
 import com.example.southparkquotes.model.MainViewModel
+
 
 
 class MenuFragment : Fragment() {
@@ -26,6 +27,7 @@ class MenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d("MenuFragment", "onCreateView called")
+
         binding = MenuFragmentBinding.inflate(inflater)
         return binding.root
 
@@ -68,10 +70,13 @@ class MenuFragment : Fragment() {
             val imageResource = viewModel.repo.charList[viewModel.repo.charPick].imageResource
             viewModel.selectedImageResource = imageResource ?: R.drawable.stan_marsh_0
             val selectedCharacter = viewModel.repo.selectedCharacterNameEntity.value ?: "Nix"
-            findNavController().navigate(
-                MenuFragmentDirections.actionMenuFragmentToQuotesMenuFragment(
-                    viewModel.selectedImageResource, selectedCharacter.toString()
 
+            val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            val navController = navHostFragment.navController
+
+            navController.navigate(
+                MenuFragmentDirections.actionMenuFragmentToDetailQuoteFragment(
+                    viewModel.selectedImageResource, selectedCharacter.toString()
                 )
             )
             Log.d("CharNameMenuMenu", imageResource.toString())
