@@ -71,7 +71,7 @@ class MenuFragment : Fragment() {
             viewModel.selectedImageResource = imageResource ?: R.drawable.stan_marsh_0
             val selectedCharacter = viewModel.repo.selectedCharacterNameEntity.value ?: "Nix"
 
-            val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.sp_nav_host_fragment) as NavHostFragment
             val navController = navHostFragment.navController
 
             navController.navigate(

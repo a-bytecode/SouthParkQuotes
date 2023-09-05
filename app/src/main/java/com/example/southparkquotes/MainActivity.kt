@@ -4,19 +4,31 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.southparkquotes.UI.HomeFragment
 import com.example.southparkquotes.UI.MenuFragment
 import com.example.southparkquotes.UI.QuotesMenuFragment
 import com.example.southparkquotes.databinding.ActivityMainBinding
+import com.example.southparkquotes.model.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var drawerLayout: DrawerLayout
     lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var navController: NavController
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +36,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         drawerLayout = binding.myDrawerLayout
+        navController = Navigation.findNavController(this, R.id.sp_nav_host_fragment)
+
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java) // ViewModel initialisieren
 
         binding.apply {
+
             toggle = ActionBarDrawerToggle(
                 this@MainActivity,
                 drawerLayout,
@@ -36,38 +52,40 @@ class MainActivity : AppCompatActivity() {
             toggle.syncState()
 
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            navView.setNavigationItemSelectedListener {
-                when (it.itemId) {
+            supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
 
+            val appBarConfiguration = AppBarConfiguration(
+                setOf(
+                    R.id.nav_random_mode,
+                    R.id.nav_home,
+                    R.id.character_mode
+                ),
+                drawerLayout
+            )
+
+            setupActionBarWithNavController(navController, appBarConfiguration)
+            navView.setupWithNavController(navController)
+
+            navView.setNavigationItemSelectedListener { menuItem ->
+                when (menuItem.itemId) {
                     R.id.nav_random_mode -> {
-                        Toast.makeText(
-                            this@MainActivity,"Random Mode",
-                            Toast.LENGTH_LONG)
-                            .show()
-                        val quotesMenuFragment = QuotesMenuFragment()
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.nav_host_fragment, quotesMenuFragment)
-                            .commit()
-                        // Drawer wird nach der Navigation geschlossen.
-                        drawerLayout.closeDrawer(GravityCompat.START)
+                        // Hier kannst du die Navigationskomponente verwenden, um zum entsprechenden Ziel zu navigieren
+                        navController.navigate(R.id.quotesMenuFragment)
                     }
-
                     R.id.nav_home -> {
-                        val homeMenuFragment = HomeFragment()
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.nav_host_fragment,homeMenuFragment)
-                            .commit()
-                        drawerLayout.closeDrawer(GravityCompat.START)
+                        navController.navigate(R.id.homeFragment)
                     }
-
                     R.id.character_mode -> {
-                        val menuFragment = MenuFragment()
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.nav_host_fragment,menuFragment)
-                            .commit()
-                        drawerLayout.closeDrawer(GravityCompat.START)
+                        navController.navigate(R.id.menuFragment)
+                    }
+                    R.id.nav_logout -> {
+                        viewModel.createEndDialog(this@MainActivity) {
+                            finish()
+                        }
                     }
                 }
+                // Schließe die Schublade nach der Navigation
+                drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }
         }

@@ -13,8 +13,8 @@
             android:layout_height="match_parent"
             tools:context=".MainActivity">
 
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/nav_host_fragment"
+                <fragment
+                    android:id="@+id/sp_nav_host_fragment"
                     android:name="androidx.navigation.fragment.NavHostFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -24,11 +24,14 @@
 
                 <!-- this the navigation view which draws and shows the navigation drawer -->
                 <!-- include the menu created in the menu folder -->
+
                 <com.google.android.material.navigation.NavigationView
                     android:id="@+id/nav_view"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
+                    app:itemBackground="@drawable/ic_baseline_menu_24"
+                    app:itemIconTint="@color/black"
                     app:menu="@menu/navigation_menu" />
 
         </androidx.drawerlayout.widget.DrawerLayout>
