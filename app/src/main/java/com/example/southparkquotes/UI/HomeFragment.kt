@@ -35,8 +35,5 @@ class HomeFragment : Fragment() {
 
         viewModel.anmitateTextView(binding.SouthParkHeadTV)
 
-        binding.Startbtng.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMenuFragment())
-        }
      }
 }

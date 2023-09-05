@@ -16,6 +16,7 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.Navigation
 import com.example.southparkquotes.R
 import com.example.southparkquotes.local.SPDatabase
 import kotlinx.coroutines.*
@@ -123,9 +124,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
-
-
-
     fun addNumber(editNumber: EditText) {
 
         val currentNumber = editNumber.text.toString().toIntOrNull() ?: 1 // Elvis-Operator
@@ -214,29 +212,29 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun handlePopupMenuAction(actionId: Int,context: Context, callback: PopupMenuCallback) {
-        when (actionId) {
-            R.id.pop_up_menu_home -> {
-               popupMenuCallback?.navigateToHome()
-            }
-            R.id.pop_up_menu_settings -> {
-                // TODO: Implementiere die Einstellungen
-            }
-            R.id.pop_up_menu_end -> {
-                val alertDialog = createEndDialog(context,callback)
-                alertDialog.show()
-            }
-        }
-    }
+//    fun handlePopupMenuAction(actionId: Int,context: Context, callback: PopupMenuCallback) {
+//        when (actionId) {
+//            R.id.pop_up_menu_home -> {
+//               popupMenuCallback?.navigateToHome()
+//            }
+//            R.id.pop_up_menu_settings -> {
+//                // TODO: Implementiere die Einstellungen
+//            }
+//            R.id.pop_up_menu_end -> {
+//                val alertDialog = createEndDialog(context,callback)
+//                alertDialog.show()
+//            }
+//        }
+//    }
 
-    fun createEndDialog(context: Context,callback: PopupMenuCallback): AlertDialog {
+    fun createEndDialog(context: Context,callback: () -> Unit): AlertDialog {
         return AlertDialog.Builder(context)
             .setTitle("Beenden")
             .setMessage("App wirklich Beenden?")
             .setIcon(R.drawable.ic_baseline_exit_to_app_24)
             .setCancelable(true)
             .setNegativeButton("Nein") { _, _ ->
-                callback.navigateToSelf()
+                callback()
             }
             .setPositiveButton("Ja") { _, _ ->
                 (context as? Activity)?.finish()

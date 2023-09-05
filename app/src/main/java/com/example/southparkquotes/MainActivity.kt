@@ -1,40 +1,101 @@
 package com.example.southparkquotes
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.example.southparkquotes.UI.HomeFragment
+import com.example.southparkquotes.UI.MenuFragment
+import com.example.southparkquotes.UI.QuotesMenuFragment
+import com.example.southparkquotes.databinding.ActivityMainBinding
+import com.example.southparkquotes.model.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
-
+    lateinit var binding: ActivityMainBinding
     lateinit var drawerLayout: DrawerLayout
-    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+    lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var navController: NavController
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        drawerLayout = findViewById(R.id.my_drawer_layout)
-        actionBarDrawerToggle =
-            ActionBarDrawerToggle(
-                this,
+        drawerLayout = binding.myDrawerLayout
+        navController = Navigation.findNavController(this, R.id.sp_nav_host_fragment)
+
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java) // ViewModel initialisieren
+
+        binding.apply {
+
+            toggle = ActionBarDrawerToggle(
+                this@MainActivity,
                 drawerLayout,
                 R.string.nav_open,
-                R.string.nav_close)
+                R.string.nav_close
+            )
+            drawerLayout.addDrawerListener(toggle)
+            toggle.syncState()
 
-        drawerLayout.addDrawerListener(actionBarDrawerToggle)
-        actionBarDrawerToggle.syncState()
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            val appBarConfiguration = AppBarConfiguration(
+                setOf(
+                    R.id.nav_random_mode,
+                    R.id.nav_home,
+                    R.id.character_mode
+                ),
+                drawerLayout
+            )
 
+            setupActionBarWithNavController(navController, appBarConfiguration)
+            navView.setupWithNavController(navController)
+
+            navView.setNavigationItemSelectedListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.nav_random_mode -> {
+                        // Hier kannst du die Navigationskomponente verwenden, um zum entsprechenden Ziel zu navigieren
+                        navController.navigate(R.id.quotesMenuFragment)
+                    }
+                    R.id.nav_home -> {
+                        navController.navigate(R.id.homeFragment)
+                    }
+                    R.id.character_mode -> {
+                        navController.navigate(R.id.menuFragment)
+                    }
+                    R.id.nav_logout -> {
+                        viewModel.createEndDialog(this@MainActivity) {
+                            finish()
+                        }
+                    }
+                }
+                // Schließe die Schublade nach der Navigation
+                drawerLayout.closeDrawer(GravityCompat.START)
+                true
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            true
-        } else super.onOptionsItemSelected(item)
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
+

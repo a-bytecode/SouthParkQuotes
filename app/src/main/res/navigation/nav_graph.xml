@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_homeFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_quotesMenuFragment"
+            app:destination="@id/quotesMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
@@ -36,15 +39,6 @@
         <action
             android:id="@+id/action_quotesMenuFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
-        <action
-            android:id="@+id/action_quotesMenuFragment_to_detailQuoteFragment"
-            app:destination="@id/detailQuoteFragment" />
-        <argument
-            android:name="imageID"
-            app:argType="integer" />
-        <argument
-            android:name="characterName"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/detailQuoteFragment"
@@ -63,4 +57,8 @@
             android:id="@+id/action_detailQuoteFragment_self"
             app:destination="@id/detailQuoteFragment" />
     </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.southparkquotes.MainActivity"
+        android:label="MainActivity" />
 </navigation>
