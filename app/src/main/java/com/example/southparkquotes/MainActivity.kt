@@ -1,26 +1,23 @@
 package com.example.southparkquotes
 
+import android.app.Activity
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.southparkquotes.UI.HomeFragment
-import com.example.southparkquotes.UI.MenuFragment
-import com.example.southparkquotes.UI.QuotesMenuFragment
 import com.example.southparkquotes.databinding.ActivityMainBinding
 import com.example.southparkquotes.model.MainViewModel
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -84,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-                // Schließe die Schublade nach der Navigation
+                // Das schließen der Schublade nach der Navigation
                 drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }

@@ -228,18 +228,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 //    }
 
     fun createEndDialog(context: Context,callback: () -> Unit): AlertDialog {
-        return AlertDialog.Builder(context)
+        Log.d("MyApp", "createEndDialog: Start")
+        val alertDialog = AlertDialog.Builder(context)
             .setTitle("Beenden")
             .setMessage("App wirklich Beenden?")
             .setIcon(R.drawable.ic_baseline_exit_to_app_24)
             .setCancelable(true)
             .setNegativeButton("Nein") { _, _ ->
+                Log.d("MyApp", "createEndDialog: Nein geklickt")
                 callback()
             }
             .setPositiveButton("Ja") { _, _ ->
+                Log.d("MyApp", "createEndDialog: Ja geklickt")
                 (context as? Activity)?.finish()
             }
             .create()
+        Log.d("MyApp", "createEndDialog: End")
+        alertDialog.show()
+        return alertDialog
     }
 
     interface PopupMenuCallback {
