@@ -3,24 +3,18 @@ package com.example.southparkquotes
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.southparkquotes.UI.HomeFragment
-import com.example.southparkquotes.UI.MenuFragment
-import com.example.southparkquotes.UI.QuotesMenuFragment
 import com.example.southparkquotes.databinding.ActivityMainBinding
 import com.example.southparkquotes.model.MainViewModel
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -68,8 +62,8 @@ class MainActivity : AppCompatActivity() {
 
             navView.setNavigationItemSelectedListener { menuItem ->
                 when (menuItem.itemId) {
+                    // Hier findet die Navigation zwischen den Fragmenten statt.
                     R.id.nav_random_mode -> {
-                        // Hier kannst du die Navigationskomponente verwenden, um zum entsprechenden Ziel zu navigieren
                         navController.navigate(R.id.quotesMenuFragment)
                     }
                     R.id.nav_home -> {
@@ -80,11 +74,11 @@ class MainActivity : AppCompatActivity() {
                     }
                     R.id.nav_logout -> {
                         viewModel.createEndDialog(this@MainActivity) {
-                            finish()
+                            navController.navigate(navController.currentDestination!!.id)
                         }
                     }
                 }
-                // Schließe die Schublade nach der Navigation
+                // Das schließen der Schublade nach der Navigation
                 drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }

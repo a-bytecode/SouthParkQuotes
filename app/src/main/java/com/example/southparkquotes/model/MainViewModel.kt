@@ -39,8 +39,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val characterNameLiveData = repo.selectedCharacterNameEntity // Aktualisierung des Namens durch Mutable Live Data
 
-    var popupMenuCallback: PopupMenuCallback? = null
-
     var selectedImageResource: Int = R.drawable.stan_marsh_0 // Hier Standardwert einsetzen
 
     var currentQuoteIndex = 0 // Für das vor-Schalten der Quotes.
@@ -212,38 +210,26 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-//    fun handlePopupMenuAction(actionId: Int,context: Context, callback: PopupMenuCallback) {
-//        when (actionId) {
-//            R.id.pop_up_menu_home -> {
-//               popupMenuCallback?.navigateToHome()
-//            }
-//            R.id.pop_up_menu_settings -> {
-//                // TODO: Implementiere die Einstellungen
-//            }
-//            R.id.pop_up_menu_end -> {
-//                val alertDialog = createEndDialog(context,callback)
-//                alertDialog.show()
-//            }
-//        }
-//    }
 
     fun createEndDialog(context: Context,callback: () -> Unit): AlertDialog {
-        return AlertDialog.Builder(context)
+        Log.d("MyApp", "createEndDialog: Start")
+        val alertDialog = AlertDialog.Builder(context)
             .setTitle("Beenden")
             .setMessage("App wirklich Beenden?")
             .setIcon(R.drawable.ic_baseline_exit_to_app_24)
             .setCancelable(true)
             .setNegativeButton("Nein") { _, _ ->
+                Log.d("MyApp", "createEndDialog: Nein geklickt")
                 callback()
             }
             .setPositiveButton("Ja") { _, _ ->
+                Log.d("MyApp", "createEndDialog: Ja geklickt")
                 (context as? Activity)?.finish()
             }
             .create()
+        Log.d("MyApp", "createEndDialog: End")
+        alertDialog.show()
+        return alertDialog
     }
 
-    interface PopupMenuCallback {
-        fun navigateToHome()
-        fun navigateToSelf()
-    }
 }

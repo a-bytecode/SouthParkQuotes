@@ -31,11 +31,8 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
             dB.deleteAll()
             dB.resetIdSequence()
             val responseImageNameList = api.retrofitService.getCharacterAndQuotes(name)
-            val newQuotes = responseImageNameList.filterNot { newQuote ->
-                getAllDatabase.value?.any { existingQuote ->
-                    existingQuote.id == newQuote.id || existingQuote.quote == newQuote.quote
-                } ?:false
-            }
+            Log.d("Repository004", "Name -> ${responseImageNameList[0].name}")
+            val newQuotes = responseImageNameList
             if(newQuotes.isNotEmpty()) {
                 _selectedCharacterNameEntity.value = responseImageNameList
                 dB.insertCharacters(newQuotes)
