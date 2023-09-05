@@ -210,6 +210,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+
     fun createEndDialog(context: Context,callback: () -> Unit): AlertDialog {
         Log.d("MyApp", "createEndDialog: Start")
         val alertDialog = AlertDialog.Builder(context)

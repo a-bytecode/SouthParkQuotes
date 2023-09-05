@@ -1,5 +1,6 @@
 package com.example.southparkquotes.UI
 
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -37,6 +38,14 @@ class DetailQuoteFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        // Leeren Sie den Text in Ihrer TextView, wenn das Fragment zerstört wird
+        binding.detailSPQuote.text = ""
+
+        // Blenden Sie die CardView aus
+        binding.cardViewDetail.visibility = View.GONE
+        super.onDestroyView()
+    }
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,13 +63,10 @@ class DetailQuoteFragment : Fragment() {
             binding.charPic01detail.setImageResource(imageResource)
         }
 
-        viewModel.getQuotesResponse(imageName.lowercase())
-        Log.d("CharTest002", "${imageName}")
-
         viewModel.apiStatus.observe(viewLifecycleOwner) {
             when (it) {
                 ApiStatus.LOADING -> {
-                    binding.cardViewDetail.visibility = View.VISIBLE
+                    binding.cardViewDetail.visibility = View.INVISIBLE
                 }
                 ApiStatus.START -> {
                     binding.cardViewDetail.visibility = View.VISIBLE
