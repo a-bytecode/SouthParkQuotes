@@ -39,8 +39,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val characterNameLiveData = repo.selectedCharacterNameEntity // Aktualisierung des Namens durch Mutable Live Data
 
-    var popupMenuCallback: PopupMenuCallback? = null
-
     var selectedImageResource: Int = R.drawable.stan_marsh_0 // Hier Standardwert einsetzen
 
     var currentQuoteIndex = 0 // Für das vor-Schalten der Quotes.
@@ -212,21 +210,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-//    fun handlePopupMenuAction(actionId: Int,context: Context, callback: PopupMenuCallback) {
-//        when (actionId) {
-//            R.id.pop_up_menu_home -> {
-//               popupMenuCallback?.navigateToHome()
-//            }
-//            R.id.pop_up_menu_settings -> {
-//                // TODO: Implementiere die Einstellungen
-//            }
-//            R.id.pop_up_menu_end -> {
-//                val alertDialog = createEndDialog(context,callback)
-//                alertDialog.show()
-//            }
-//        }
-//    }
-
     fun createEndDialog(context: Context,callback: () -> Unit): AlertDialog {
         Log.d("MyApp", "createEndDialog: Start")
         val alertDialog = AlertDialog.Builder(context)
@@ -248,8 +231,4 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return alertDialog
     }
 
-    interface PopupMenuCallback {
-        fun navigateToHome()
-        fun navigateToSelf()
-    }
 }

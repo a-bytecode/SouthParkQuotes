@@ -1,10 +1,7 @@
 package com.example.southparkquotes
 
-import android.app.Activity
-import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -65,8 +62,8 @@ class MainActivity : AppCompatActivity() {
 
             navView.setNavigationItemSelectedListener { menuItem ->
                 when (menuItem.itemId) {
+                    // Hier findet die Navigation zwischen den Fragmenten statt.
                     R.id.nav_random_mode -> {
-                        // Hier kannst du die Navigationskomponente verwenden, um zum entsprechenden Ziel zu navigieren
                         navController.navigate(R.id.quotesMenuFragment)
                     }
                     R.id.nav_home -> {
@@ -77,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     R.id.nav_logout -> {
                         viewModel.createEndDialog(this@MainActivity) {
-                            finish()
+                            navController.navigate(navController.currentDestination!!.id)
                         }
                     }
                 }
