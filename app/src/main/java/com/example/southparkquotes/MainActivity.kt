@@ -45,9 +45,6 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
 
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
-
             val appBarConfiguration = AppBarConfiguration(
                 setOf(
                     R.id.nav_random_mode,
@@ -59,6 +56,14 @@ class MainActivity : AppCompatActivity() {
 
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
+
+            // Hier wird das Pfeil Symbol durch "true" angezeigt.
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            // Durch den addOnDestinationChangedListener legen wir das Custom-Symbol dauerhaft fest.
+            navController.addOnDestinationChangedListener { _, _, _ ->
+                // Hier legen wir ein custom icon fest.
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
+            }
 
             navView.setNavigationItemSelectedListener { menuItem ->
                 when (menuItem.itemId) {
