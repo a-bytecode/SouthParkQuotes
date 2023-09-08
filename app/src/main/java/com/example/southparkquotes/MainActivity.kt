@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             // Durch den addOnDestinationChangedListener legen wir das Custom-Symbol dauerhaft fest.
             navController.addOnDestinationChangedListener { _, _, _ ->
-                // Hier legen wir ein custom icon fest.
+                // Hier legen wir ein custom icon fest für jedes Ziel-Fragment was abgerufen wird.
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
             }
 
