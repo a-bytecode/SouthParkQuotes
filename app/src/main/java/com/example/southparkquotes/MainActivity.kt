@@ -3,6 +3,7 @@ package com.example.southparkquotes
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             navController.addOnDestinationChangedListener { _, _, _ ->
                 // Hier legen wir ein custom icon fest für jedes Ziel-Fragment was abgerufen wird.
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
+                supportActionBar?.setDisplayShowTitleEnabled(false) // Hier wird keine Überschrift im Titel festgelegt.
             }
 
             navView.setNavigationItemSelectedListener { menuItem ->
