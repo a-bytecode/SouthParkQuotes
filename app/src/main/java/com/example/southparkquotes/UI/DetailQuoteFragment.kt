@@ -9,10 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.DetailquoteFragmentBinding
@@ -48,10 +51,10 @@ class DetailQuoteFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+
         val args = DetailQuoteFragmentArgs.fromBundle(requireArguments())
         val imageResource = args.imageID
         val imageName = args.characterName
-
         var firstQuoteLoaded = false
         // animation für das ImageView
         val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.circle_animation)
@@ -95,5 +98,9 @@ class DetailQuoteFragment : Fragment() {
                 Log.d("imageName004", "${quotesList[0].quote}")
             }
         }
+
+        viewModel.selectedBackground.observe(viewLifecycleOwner, Observer { bkgResource ->
+            binding.backgroundIV.setImageResource(bkgResource)
+        })
     }
 }

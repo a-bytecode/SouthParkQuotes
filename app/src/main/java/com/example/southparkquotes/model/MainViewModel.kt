@@ -33,6 +33,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     var repo = Repository(api,database)
 
+    val selectedBackground = MutableLiveData<Int>()
+
     private var _apiStatus = MutableLiveData<ApiStatus>()
     val apiStatus : LiveData<ApiStatus>
         get() = _apiStatus
@@ -194,6 +196,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         currentTextView.text = backgroundName
 
+    }
+
+    fun updateBackground(backgroundResource: Int,view: View) {
+        // Hier setzt du den Hintergrund des Fragments auf das neue Bild
+        view.setBackgroundResource(backgroundResource)
     }
 
 

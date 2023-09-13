@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.southparkquotes.databinding.SettingsScreenBinding
@@ -57,6 +58,15 @@ class SettingsFragment : Fragment() {
                 binding.backgroundIV,
                 binding.bGNameTV
             )
+        }
+
+        binding.applyBtng.setOnClickListener {
+            // TODO: Übernahme des Hintergrundes im DetailquoteFragment
+            val selectedBackground =
+                viewModel.repo.backgroundPictureList[viewModel.currentIndex]
+            viewModel.selectedBackground.value = selectedBackground
+            val spec = Toast.LENGTH_SHORT
+            Toast.makeText(context,"Background Changed",spec).show()
         }
     }
 }
