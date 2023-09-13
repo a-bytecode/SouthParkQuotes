@@ -42,8 +42,18 @@ class SettingsFragment : Fragment() {
         )
 
         binding.fwIVBtng.setOnClickListener {
-            // TODO: Forward Click import.
-            viewModel.switchFwdPic(viewModel.repo.backgroundPictureList,
+            // Forward Click
+            viewModel.switchFwdPic(
+                viewModel.repo.backgroundPictureList,
+                binding.backgroundIV,
+                binding.bGNameTV
+            )
+        }
+
+        binding.backIVBtng.setOnClickListener {
+            //Backward Click
+            viewModel.switchBwdPic(
+                viewModel.repo.backgroundPictureList,
                 binding.backgroundIV,
                 binding.bGNameTV
             )

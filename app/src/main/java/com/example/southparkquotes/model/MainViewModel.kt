@@ -175,6 +175,28 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return currentImage.context.resources.getResourceEntryName(backgroundResource)
     }
 
+    fun switchBwdPic(pictureList: MutableList<Int>,currentImage: ImageView, currentTextView : TextView) {
+
+        currentIndex --
+
+        if(currentIndex < 0) {
+            currentIndex = pictureList.size -1 // Hier wird das letzte Element der Liste wieder auf 0 gesetzt.
+            Log.d("currentIndex", "CurrentIndex is -> ${pictureList[currentIndex]}")
+        }
+
+        val currentBackground = pictureList[currentIndex]
+
+        val backgroundName = getBackgroundName(currentBackground,currentTextView)
+
+        currentImage.setImageResource(currentBackground)
+
+        currentTextView.setText(currentBackground)
+
+        currentTextView.text = backgroundName
+
+    }
+
+
     fun anmitateTextView(inputText: TextView) {
 
         val text = inputText.text.toString()
