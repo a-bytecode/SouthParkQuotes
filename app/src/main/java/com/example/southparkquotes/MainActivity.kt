@@ -84,6 +84,9 @@ class MainActivity : AppCompatActivity() {
                             navController.navigate(navController.currentDestination!!.id)
                         }
                     }
+                    R.id.nav_settings -> {
+                        navController.navigate(R.id.settingsFragment)
+                    }
                 }
                 // Das schließen der Schublade nach der Navigation
                 drawerLayout.closeDrawer(GravityCompat.START)

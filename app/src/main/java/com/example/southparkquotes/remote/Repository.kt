@@ -13,6 +13,7 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
     val dB = database.spDatabaseDao
     val getAllDatabase = dB.getAll()
 
+    // All Characters:
     var charPick = 0
 
     var stan = Character(0, "Stan", R.drawable.stan_marsh_0,"Lets Rock!")
@@ -21,6 +22,30 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
     var butters = Character(3, "Butters", R.drawable.buttersstotch,"Lets Rock!")
 
     var charList = mutableListOf(stan,kyle,butters,cartman)
+
+    // All Background Pictures:
+    val backgroundPictureList : MutableList<Int> = mutableListOf(
+        R.drawable.background_1,
+        R.drawable.background_2,
+        R.drawable.background_3,
+        R.drawable.background_4,
+        R.drawable.background_5,
+        R.drawable.background_6,
+        R.drawable.background_7,
+        R.drawable.background_8,
+        R.drawable.background_9,
+        R.drawable.background_10,
+        R.drawable.background_11,
+        R.drawable.background_12,
+        R.drawable.background_13,
+        R.drawable.background_14,
+        R.drawable.background_15,
+        R.drawable.background_16,
+        R.drawable.background_17,
+        R.drawable.background_18,
+        R.drawable.background_19,
+        R.drawable.background_20,
+    )
 
     private val _selectedCharacterNameEntity = MutableLiveData<List<Character>>()
     val selectedCharacterNameEntity : LiveData<List<Character>>
