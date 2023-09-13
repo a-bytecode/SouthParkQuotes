@@ -148,6 +148,33 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    var currentIndex = 0
+
+    fun switchFwdPic(pictureList: MutableList<Int>,currentImage: ImageView, currentTextView : TextView) {
+
+        currentIndex ++
+
+        if(currentIndex >= pictureList.size) {
+            currentIndex = 0 // Hier wird das letzte Element der Liste wieder auf 0 gesetzt.
+            Log.d("currentIndex", "CurrentIndex is -> ${pictureList[currentIndex]}")
+        }
+
+        val currentBackground = pictureList[currentIndex]
+
+        val backgroundName = getBackgroundName(currentBackground,currentTextView)
+
+        currentImage.setImageResource(currentBackground)
+
+        currentTextView.setText(currentBackground)
+
+        currentTextView.text = backgroundName
+
+    }
+
+    fun getBackgroundName(backgroundResource: Int, currentImage : TextView): String {
+        return currentImage.context.resources.getResourceEntryName(backgroundResource)
+    }
+
     fun anmitateTextView(inputText: TextView) {
 
         val text = inputText.text.toString()
