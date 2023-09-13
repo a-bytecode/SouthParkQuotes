@@ -69,7 +69,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cradViewSettings">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
@@ -141,6 +141,8 @@
             android:layout_weight="1"
             android:fontFamily="@font/alatsi"
             android:text="Apply"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="10dp"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
