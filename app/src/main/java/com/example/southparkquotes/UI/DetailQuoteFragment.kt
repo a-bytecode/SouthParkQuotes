@@ -66,15 +66,15 @@ class DetailQuoteFragment : Fragment() {
             binding.charPic01detail.setImageResource(initialCharacter.imageResource!!)
 
             binding.charPic01detail.setOnClickListener {
-                val randomCharacter = viewModel.throwRandomCharacter(viewModel.repo.charList)
-                binding.charPic01detail.setImageResource(randomCharacter.imageResource!!)
+//                val randomCharacter = viewModel.throwRandomCharacter(viewModel.repo.charList)
+//                binding.charPic01detail.setImageResource(randomCharacter.imageResource!!)
 
-                viewModel.getQuotesResponse(imageName.lowercase())
+                viewModel.getQuotesResponse(initialCharacter.name.lowercase())
                 val nextQuote = viewModel.getNextQuote(binding.detailSPQuote)
                 if (nextQuote != null) {
                     binding.detailSPQuote.text = nextQuote
                 }
-                Log.d("fromMQuoteMenu", "${imageName}")
+                Log.d("fromMQuoteMenu", "${initialCharacter.name.lowercase()}")
 
                 viewModel.characterNameLiveData.observe(viewLifecycleOwner) { quotesList ->
                     if (!firstQuoteLoaded && quotesList.isNotEmpty()) {
@@ -129,9 +129,8 @@ class DetailQuoteFragment : Fragment() {
             }
         }
 
-
         viewModel.selectedBackground.observe(viewLifecycleOwner, Observer { bkgResource ->
-            binding.backgroundIV.setImageResource(bkgResource)
+            binding.backgroundIV.setImageResource(bkgResource.resourceID)
         })
     }
 }

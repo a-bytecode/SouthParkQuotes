@@ -2,8 +2,8 @@
 1. Soundinhalte
 2. Wallpaper wechsel
 
-- Zurück zum Aktuellen Frame nach einstellen des Wallpapers fixen (bug)
-- Random Mode Screen, erstellen oder Detailquote Fragment erweitern.
+
+- Zum Speichern des Hinergrundbildes auch nach beendigung der App / RoomDatabase
 - Character den passenden Spruch filtern.(Optional)
 - Quotes aus der Datenbank speisen (Optional)
 - Sound Implementierung für die Charaktere

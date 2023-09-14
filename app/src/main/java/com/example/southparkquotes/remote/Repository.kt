@@ -1,10 +1,10 @@
 package com.example.southparkquotes.remote
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.southparkquotes.R
 import com.example.southparkquotes.local.SPDatabase
+import com.example.southparkquotes.model.BackgroundImages
 import com.example.southparkquotes.model.Character
 
 
@@ -51,19 +51,28 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
     val selectedCharacterNameEntity : LiveData<List<Character>>
         get() = _selectedCharacterNameEntity
 
+    private val _selectedBackground = MutableLiveData<BackgroundImages>()
+    val selectedBackground : LiveData<BackgroundImages>
+        get() = _selectedBackground
+
+    suspend fun insertImages(backgroundImages: BackgroundImages) {
+        dB.insertImages(backgroundImages)
+        _selectedBackground.value = backgroundImages
+    }
+
+
     suspend fun getQuotesResponse(name:String) {
         try {
             dB.deleteAll()
             dB.resetIdSequence()
             val responseImageNameList = api.retrofitService.getCharacterAndQuotes(name)
-            Log.d("Repository004", "Name -> ${responseImageNameList[0].name}")
             val newQuotes = responseImageNameList
+
             if(newQuotes.isNotEmpty()) {
                 _selectedCharacterNameEntity.value = responseImageNameList
                 dB.insertCharacters(newQuotes)
-                Log.d("Repository004", "Size of List -> ${selectedCharacterNameEntity.value?.size ?: 0}")
-                Log.d("Repository005", "Full List -> ${selectedCharacterNameEntity.value}")
             }
+
         } catch (e:Exception) {
             e.printStackTrace()
         }
