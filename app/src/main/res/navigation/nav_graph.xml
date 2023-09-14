@@ -42,6 +42,12 @@
         <action
             android:id="@+id/action_quotesMenuFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_quotesMenuFragment_to_detailQuoteFragment"
+            app:destination="@id/detailQuoteFragment" />
+        <action
+            android:id="@+id/action_quotesMenuFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailQuoteFragment"
@@ -59,6 +65,12 @@
         <action
             android:id="@+id/action_detailQuoteFragment_self"
             app:destination="@id/detailQuoteFragment" />
+        <action
+            android:id="@+id/action_detailQuoteFragment_to_quotesMenuFragment"
+            app:destination="@id/quotesMenuFragment" />
+        <argument
+            android:name="showRandomCharacter"
+            app:argType="boolean" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"

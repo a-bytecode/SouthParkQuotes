@@ -45,6 +45,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     var currentQuoteIndex = 0 // Für das vor-Schalten der Quotes.
 
+    var currentIndex = 0 // Der current Index für das Auswählen des Wallpapers
+
+    var amIfromQuotesMenu = true // Für das erkennen der Navigation zwischen QuotesMenu und Detail
+
+    fun toggleAmIfromQuotesMenu() {
+        amIfromQuotesMenu = !amIfromQuotesMenu
+    }
+
+    fun throwRandomCharacter(charList : MutableList<Character>) : Character {
+
+        var getRandomChar = charList.random()
+
+        return getRandomChar
+    }
+
     // TODO: Funktion für Anpassung des Character Images 326dp & 460dp
     fun scaleImage(image : ImageView, newWidthDp: Int, newHeightDp: Int, context: Context) {
         val newWidthInPixels = (newWidthDp * context.resources.displayMetrics.density).toInt()
@@ -150,8 +165,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    var currentIndex = 0
-
     fun switchFwdPic(pictureList: MutableList<Int>,currentImage: ImageView, currentTextView : TextView) {
 
         currentIndex ++
@@ -197,12 +210,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         currentTextView.text = backgroundName
 
     }
-
-    fun updateBackground(backgroundResource: Int,view: View) {
-        // Hier setzt du den Hintergrund des Fragments auf das neue Bild
-        view.setBackgroundResource(backgroundResource)
-    }
-
 
     fun anmitateTextView(inputText: TextView) {
 
