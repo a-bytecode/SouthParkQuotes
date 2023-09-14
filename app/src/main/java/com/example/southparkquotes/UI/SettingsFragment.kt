@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.databinding.SettingsScreenBinding
 import com.example.southparkquotes.model.MainViewModel
 import com.example.southparkquotes.remote.Repository
@@ -67,6 +68,8 @@ class SettingsFragment : Fragment() {
             viewModel.selectedBackground.value = selectedBackground
             val spec = Toast.LENGTH_SHORT
             Toast.makeText(context,"Background Changed",spec).show()
+            // Durch popBackStack() kehren wir auf den vorherigen Screen zurück.
+            findNavController().popBackStack()
         }
     }
 }
