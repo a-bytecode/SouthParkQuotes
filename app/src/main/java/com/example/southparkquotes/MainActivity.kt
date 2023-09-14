@@ -1,5 +1,6 @@
 package com.example.southparkquotes
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -13,6 +14,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.southparkquotes.UI.MenuFragment
 import com.example.southparkquotes.databinding.ActivityMainBinding
 import com.example.southparkquotes.model.MainViewModel
 
@@ -77,7 +79,13 @@ class MainActivity : AppCompatActivity() {
                         navController.navigate(R.id.homeFragment)
                     }
                     R.id.character_mode -> {
-                        navController.navigate(R.id.menuFragment)
+                        viewModel.createCharacterModeDialog(this@MainActivity) { startCharacterMode ->
+                            if (startCharacterMode) {
+                                navController.navigate(R.id.menuFragment)
+                            } else {
+                                // do nothing!!!
+                            }
+                        }
                     }
                     R.id.nav_logout -> {
                         viewModel.createEndDialog(this@MainActivity) {

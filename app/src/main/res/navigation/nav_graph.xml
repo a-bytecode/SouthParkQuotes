@@ -71,6 +71,9 @@
         <argument
             android:name="showRandomCharacter"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_detailQuoteFragment_self2"
+            app:destination="@id/detailQuoteFragment" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"
