@@ -1,22 +1,16 @@
 package com.example.southparkquotes.UI
 
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.PopupMenu
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.DetailquoteFragmentBinding
 import com.example.southparkquotes.model.ApiStatus
@@ -59,22 +53,17 @@ class DetailQuoteFragment : Fragment() {
         // animation für das ImageView
         val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.circle_animation)
 
-
         if (viewModel.amIfromQuotesMenu) {
-
             val initialCharacter = viewModel.throwRandomCharacter(viewModel.repo.charList)
             binding.charPic01detail.setImageResource(initialCharacter.imageResource!!)
 
             binding.charPic01detail.setOnClickListener {
-                val randomCharacter = viewModel.throwRandomCharacter(viewModel.repo.charList)
-                binding.charPic01detail.setImageResource(randomCharacter.imageResource!!)
-
-                viewModel.getQuotesResponse(imageName.lowercase())
+                viewModel.getQuotesResponse(initialCharacter.name.lowercase())
                 val nextQuote = viewModel.getNextQuote(binding.detailSPQuote)
                 if (nextQuote != null) {
                     binding.detailSPQuote.text = nextQuote
                 }
-                Log.d("fromMQuoteMenu", "${imageName}")
+                Log.d("fromMQuoteMenu", "${initialCharacter.name.lowercase()}")
 
                 viewModel.characterNameLiveData.observe(viewLifecycleOwner) { quotesList ->
                     if (!firstQuoteLoaded && quotesList.isNotEmpty()) {
@@ -106,7 +95,6 @@ class DetailQuoteFragment : Fragment() {
                     Log.d("imageName004", "${quotesList[0].quote}")
                 }
             }
-
         }
 
 
@@ -129,9 +117,8 @@ class DetailQuoteFragment : Fragment() {
             }
         }
 
-
         viewModel.selectedBackground.observe(viewLifecycleOwner, Observer { bkgResource ->
-            binding.backgroundIV.setImageResource(bkgResource)
+            binding.backgroundIV.setImageResource(bkgResource.resourceID)
         })
     }
 }

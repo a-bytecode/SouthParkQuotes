@@ -34,8 +34,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     var repo = Repository(api,database)
 
-    val selectedBackground = MutableLiveData<Int>()
-
     private var _apiStatus = MutableLiveData<ApiStatus>()
     val apiStatus : LiveData<ApiStatus>
         get() = _apiStatus
@@ -49,6 +47,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     var currentIndex = 0 // Der current Index für das Auswählen des Wallpapers
 
     var amIfromQuotesMenu = true // Für das erkennen der Navigation zwischen QuotesMenu und Detail
+
+    var selectedBackground = repo.selectedBackground // zum beobachten der Live Data för das Wallaper
 
     fun toggleAmIfromQuotesMenu() {
         amIfromQuotesMenu = !amIfromQuotesMenu
@@ -270,6 +270,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             } catch (e: Exception) {
                 _apiStatus.value = ApiStatus.ERROR
                 Log.d("GETQUOTES001", "${characterNameLiveData.value}")
+            }
+        }
+    }
+
+    // Zum Inserten vom Hintergurundbild in die Datenbank
+    fun insertBackgroundImage(backgroundImage : BackgroundImages) {
+        viewModelScope.launch {
+            try {
+                repo.insertImages(backgroundImage)
+            } catch (e:Exception) {
+                Log.d("Error in Database!!!", "Achtung, kein Background Image gefunden!")
             }
         }
     }

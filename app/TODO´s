@@ -2,8 +2,14 @@
 1. Soundinhalte
 2. Wallpaper wechsel
 
-- Zurück zum Aktuellen Frame nach einstellen des Wallpapers fixen (bug)
-- Random Mode Screen, erstellen oder Detailquote Fragment erweitern.
+
+- Beim eestellen des Frames im DetailQuoteFragment,
+  das letzte Wallpaper aus der Datenbank laden.
+
+  - Im QuotesMenuFragment entscheiden,
+  ob man das beubehalten soll da das Auswählen
+  des einzelnen Characterds doch einzelnd erfolgen soll.
+
 - Character den passenden Spruch filtern.(Optional)
 - Quotes aus der Datenbank speisen (Optional)
 - Sound Implementierung für die Charaktere

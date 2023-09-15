@@ -5,9 +5,10 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.southparkquotes.model.BackgroundImages
 import com.example.southparkquotes.model.Character
 
-@Database(entities = [Character::class], version = 1, exportSchema = false)
+@Database(entities = [Character::class, BackgroundImages::class], version = 1, exportSchema = false)
 abstract class SPDatabase : RoomDatabase() {
 
     abstract val spDatabaseDao : SPDatabaseDao
