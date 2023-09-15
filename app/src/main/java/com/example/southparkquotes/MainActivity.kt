@@ -79,13 +79,7 @@ class MainActivity : AppCompatActivity() {
                         navController.navigate(R.id.homeFragment)
                     }
                     R.id.character_mode -> {
-                        viewModel.createCharacterModeDialog(this@MainActivity) { startCharacterMode ->
-                            if (startCharacterMode) {
-                                navController.navigate(R.id.menuFragment)
-                            } else {
-                                // do nothing!!!
-                            }
-                        }
+                            navController.navigate(R.id.menuFragment)
                     }
                     R.id.nav_logout -> {
                         viewModel.createEndDialog(this@MainActivity) {

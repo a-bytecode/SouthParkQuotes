@@ -3,7 +3,13 @@
 2. Wallpaper wechsel
 
 
-- Zum Speichern des Hinergrundbildes auch nach beendigung der App / RoomDatabase
+- Beim eestellen des Frames im DetailQuoteFragment,
+  das letzte Wallpaper aus der Datenbank laden.
+
+  - Im QuotesMenuFragment entscheiden,
+  ob man das beubehalten soll da das Auswählen
+  des einzelnen Characterds doch einzelnd erfolgen soll.
+
 - Character den passenden Spruch filtern.(Optional)
 - Quotes aus der Datenbank speisen (Optional)
 - Sound Implementierung für die Charaktere

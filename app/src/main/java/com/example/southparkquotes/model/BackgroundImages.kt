@@ -8,6 +8,7 @@ class BackgroundImages (
 
     @PrimaryKey(autoGenerate = true)
     val imageID : Int = 0, // Primärschlüssel
+
     val resourceID : Int // ID des Bildes
 
     )

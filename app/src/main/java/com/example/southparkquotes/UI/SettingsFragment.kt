@@ -74,7 +74,7 @@ class SettingsFragment : Fragment() {
             val spec = Toast.LENGTH_SHORT
             Toast.makeText(context,"Background Changed",spec).show()
             // Durch popBackStack() kehren wir auf den vorherigen Screen zurück.
-            findNavController().popBackStack()
+            findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToHomeFragment())
         }
     }
 }
