@@ -56,8 +56,8 @@ class DetailQuoteFragment : Fragment() {
         if (viewModel.amIfromQuotesMenu) {
             val initialCharacter = viewModel.throwRandomCharacter(viewModel.repo.charList)
             binding.charPic01detail.setImageResource(initialCharacter.imageResource!!)
-
             binding.charPic01detail.setOnClickListener {
+                viewModel.playVoices(initialCharacter,requireContext())
                 viewModel.getQuotesResponse(initialCharacter.name.lowercase())
                 val nextQuote = viewModel.getNextQuote(binding.detailSPQuote)
                 if (nextQuote != null) {

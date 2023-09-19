@@ -1,6 +1,7 @@
 package com.example.southparkquotes.model
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
@@ -16,5 +17,11 @@ data class Character(
     var imageResource: Int? = null, // Hier speichern wir die ID des Bildes (Resource-Id)
 
     @Json(name = "quote")
-    var quote : String
-)
+    var quote : String,
+
+    @Ignore
+    var voiceList : List<Int>
+) {
+    // Sekundärer Konstruktor für Room
+    constructor(name: String, quote: String) : this(0, name, null, quote, emptyList())
+}

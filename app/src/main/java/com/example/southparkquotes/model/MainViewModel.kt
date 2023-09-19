@@ -4,10 +4,10 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.Application
 import android.content.Context
+import android.media.MediaPlayer
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.AndroidViewModel
@@ -16,8 +16,6 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.example.southparkquotes.R
 import com.example.southparkquotes.local.SPDatabase
 import kotlinx.coroutines.*
@@ -327,6 +325,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         alertDialog.show()
         return alertDialog
+    }
+
+    fun playVoices(character: Character, context: Context) {
+        playVoiceAtIndex(character, context, 0)
+    }
+
+    private fun playVoiceAtIndex(character: Character, context: Context, index: Int) {
+        if (index < character.voiceList.size) {
+            val mediaPlayer = MediaPlayer.create(context, character.voiceList[index])
+            mediaPlayer.setOnCompletionListener { mp ->
+                mp.release() // Freigabe des Media Players nach der Wiedergabe
+                // Rufe die Funktion rekursiv auf, um den nächsten Sound abzuspielen
+                playVoiceAtIndex(character, context, index + 1)
+            }
+            mediaPlayer.start()
+        }
     }
 
 }
