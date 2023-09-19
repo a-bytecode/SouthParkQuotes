@@ -48,7 +48,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     var amIfromQuotesMenu = true // Für das erkennen der Navigation zwischen QuotesMenu und Detail
 
-    var selectedBackground = repo.selectedBackground // zum beobachten der Live Data för das Wallaper
+    var selectedBackground = repo.selectedBackground // zum beobachten der Live Data für das Wallpaper
 
     fun toggleAmIfromQuotesMenu() {
         amIfromQuotesMenu = !amIfromQuotesMenu
