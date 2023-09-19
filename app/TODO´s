@@ -1,15 +1,29 @@
+------------------------------------------------------------
+
 - Settings Screen erstellen er soll beinhalten:
 1. Soundinhalte
-2. Wallpaper wechsel
+2. Wallpaper wechsel // fertig
 
+------------------------------------------------------------
 
-- Beim eestellen des Frames im DetailQuoteFragment,
+- Beim erstellen des Frames im DetailQuoteFragment,
   das letzte Wallpaper aus der Datenbank laden.
 
-  - Im QuotesMenuFragment entscheiden,
-  ob man das beubehalten soll da das Auswählen
-  des einzelnen Characterds doch einzelnd erfolgen soll.
+------------------------------------------------------------
+
+ - Ungewollte Ausführung: "This is a Placeholder" - Text wird manchmal angezeigt,
+  wenn quotes zu ende geladen haben.
+
+------------------------------------------------------------
 
 - Character den passenden Spruch filtern.(Optional)
+
+------------------------------------------------------------
+
 - Quotes aus der Datenbank speisen (Optional)
+
+------------------------------------------------------------
+
 - Sound Implementierung für die Charaktere
+
+------------------------------------------------------------
