@@ -329,6 +329,30 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun playVoices(character: Character, context: Context) {
 
+            when (character.name) {
+
+                "Cartman" -> {
+                    character.voiceList = repo.cartmanVoiceList
+                    plaVoicesByIndex(character,context)
+                }
+                "Stan" -> {
+                    character.voiceList = repo.cartmanVoiceList
+                    plaVoicesByIndex(character,context)
+                }
+                "Kyle" -> {
+                    character.voiceList = repo.cartmanVoiceList
+                    plaVoicesByIndex(character,context)
+                }
+                "Butters" -> {
+                    character.voiceList = repo.cartmanVoiceList
+                    plaVoicesByIndex(character,context)
+                }
+            }
+        Log.d("C-NameViewModel-Test", "Character Name -> ${character.name}")
+    }
+
+    fun plaVoicesByIndex(character: Character, context: Context) {
+
         currentIndex ++
 
         if(currentIndex >= character.voiceList.size) {
@@ -341,5 +365,4 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         playMe.start()
     }
-
 }

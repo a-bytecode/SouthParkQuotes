@@ -1,8 +1,6 @@
 package com.example.southparkquotes.model
 
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.squareup.moshi.Json
 
 
@@ -19,9 +17,11 @@ data class Character(
     @Json(name = "quote")
     var quote : String,
 
+) : CharacterVoiceList {
     @Ignore
-    var voiceList : List<Int>
-) {
-    // Sekundärer Konstruktor für Room
-    constructor(name: String, quote: String) : this(0, name, null, quote, emptyList())
+    override lateinit var voiceList: List<Int>
+}
+
+interface CharacterVoiceList {
+    val voiceList: List<Int>
 }
