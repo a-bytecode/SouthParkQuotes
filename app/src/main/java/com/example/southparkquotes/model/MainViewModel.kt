@@ -328,19 +328,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun playVoices(character: Character, context: Context) {
-        playVoiceAtIndex(character, context, 0)
-    }
 
-    private fun playVoiceAtIndex(character: Character, context: Context, index: Int) {
-        if (index < character.voiceList.size) {
-            val mediaPlayer = MediaPlayer.create(context, character.voiceList[index])
-            mediaPlayer.setOnCompletionListener { mp ->
-                mp.release() // Freigabe des Media Players nach der Wiedergabe
-                // Rufe die Funktion rekursiv auf, um den nächsten Sound abzuspielen
-                playVoiceAtIndex(character, context, index + 1)
-            }
-            mediaPlayer.start()
+        currentIndex ++
+
+        if(currentIndex >= character.voiceList.size) {
+            currentIndex = 0
         }
+
+        val playVoiceByIndex = character.voiceList[currentIndex]
+
+        val playMe = MediaPlayer.create(context,playVoiceByIndex)
+
+        playMe.start()
     }
 
 }
