@@ -67,7 +67,7 @@ class MenuFragment : Fragment() {
         binding.check2IV.setOnClickListener {
             val imageResource = viewModel.repo.charList[viewModel.repo.charPick].imageResource
             viewModel.selectedImageResource = imageResource ?: R.drawable.stan_marsh_0
-            val selectedCharacter = viewModel.repo.charList[viewModel.repo.charPick].name
+            val selectedCharacter = viewModel.repo.charList[viewModel.repo.charPick]
 
             val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.sp_nav_host_fragment) as NavHostFragment
             val navController = navHostFragment.navController
@@ -76,7 +76,7 @@ class MenuFragment : Fragment() {
 
             navController.navigate(
                 MenuFragmentDirections.actionMenuFragmentToDetailQuoteFragment(
-                    viewModel.selectedImageResource, selectedCharacter,viewModel.amIfromQuotesMenu
+                    viewModel.selectedImageResource, viewModel.amIfromQuotesMenu,selectedCharacter
                 )
             )
             Log.d("CharNameMenuMenu", "ImageID: ${imageResource.toString()}")

@@ -16,12 +16,48 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
     // All Characters:
     var charPick = 0
 
-    var stan = Character(0, "Stan", R.drawable.stan_marsh_0,"Lets Rock!")
-    var cartman = Character(1,"Cartman",R.drawable.eric_cartman,"Lets Rock!")
-    var kyle = Character(2,"Kyle",R.drawable.kyle_broflovski,"Lets Rock!")
-    var butters = Character(3, "Butters", R.drawable.buttersstotch,"Lets Rock!")
-
-    var charList = mutableListOf(stan,kyle,butters,cartman)
+    // All Cartman Voices:
+    var cartmanVoiceList : List<Int> = listOf(
+        R.raw.cartman1,
+        R.raw.cartman2,
+        R.raw.cartman3,
+        R.raw.cartman5,
+        R.raw.cartman6,
+        R.raw.cartman7,
+        R.raw.cartman8,
+        R.raw.cartman9,
+        R.raw.cartman10,
+        R.raw.cartman11,
+        R.raw.cartman12,
+        R.raw.cartman13,
+        R.raw.cartman14,
+        R.raw.cartman15,
+        R.raw.cartman16,
+        R.raw.cartman17,
+        R.raw.cartman18,
+        R.raw.cartman19,
+        R.raw.cartman20,
+        R.raw.cartman21,
+        R.raw.cartman22,
+        R.raw.cartman23,
+        R.raw.cartman24,
+        R.raw.cartman25,
+        R.raw.cartman26,
+        R.raw.cartman27,
+        R.raw.cartman28,
+        R.raw.cartman29,
+        R.raw.cartman30,
+        R.raw.cartman31,
+        R.raw.cartman32,
+        R.raw.cartman33,
+        R.raw.cartman34,
+        R.raw.cartman35,
+        R.raw.cartman36,
+        R.raw.cartman37,
+        R.raw.cartman38,
+        R.raw.cartman39,
+        R.raw.cartman40
+    )
 
     // All Background Pictures:
     val backgroundPictureList : MutableList<Int> = mutableListOf(
@@ -46,6 +82,13 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
         R.drawable.background_19,
         R.drawable.background_20,
     )
+
+    var stan = Character(0, "Stan", R.drawable.stan_marsh_0,"Lets Rock!")
+    var cartman = Character(1,"Cartman",R.drawable.eric_cartman,"Lets Rock!")
+    var kyle = Character(2,"Kyle",R.drawable.kyle_broflovski,"Lets Rock!")
+    var butters = Character(3, "Butters", R.drawable.buttersstotch,"Lets Rock!")
+
+    var charList = mutableListOf(stan,kyle,butters,cartman)
 
     private val _selectedCharacterNameEntity = MutableLiveData<List<Character>>()
     val selectedCharacterNameEntity : LiveData<List<Character>>

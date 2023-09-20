@@ -10,7 +10,6 @@ import com.example.southparkquotes.model.Character
 
 @Database(entities = [Character::class, BackgroundImages::class], version = 1, exportSchema = false)
 abstract class SPDatabase : RoomDatabase() {
-
     abstract val spDatabaseDao : SPDatabaseDao
 
     companion object {

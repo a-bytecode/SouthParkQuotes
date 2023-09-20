@@ -48,18 +48,25 @@ class DetailQuoteFragment : Fragment() {
 
         val args = DetailQuoteFragmentArgs.fromBundle(requireArguments())
         val imageResource = args.imageID
-        val imageName = args.characterName
+        val imageName = args.character.name
+        val chosenCharacter = args.character
+
         var firstQuoteLoaded = false
         // animation für das ImageView
         val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.circle_animation)
 
         if (viewModel.amIfromQuotesMenu) {
+
             val initialCharacter = viewModel.throwRandomCharacter(viewModel.repo.charList)
             binding.charPic01detail.setImageResource(initialCharacter.imageResource!!)
 
             binding.charPic01detail.setOnClickListener {
+
+                viewModel.playVoices(initialCharacter,requireContext())
                 viewModel.getQuotesResponse(initialCharacter.name.lowercase())
+
                 val nextQuote = viewModel.getNextQuote(binding.detailSPQuote)
+
                 if (nextQuote != null) {
                     binding.detailSPQuote.text = nextQuote
                 }
@@ -81,6 +88,7 @@ class DetailQuoteFragment : Fragment() {
 
             binding.charPic01detail.setOnClickListener {
                 viewModel.getQuotesResponse(imageName.lowercase())
+                viewModel.playVoices(chosenCharacter,requireContext())
                 val nextQuote = viewModel.getNextQuote(binding.detailSPQuote)
                 if (nextQuote != null) {
                     binding.detailSPQuote.text = nextQuote
