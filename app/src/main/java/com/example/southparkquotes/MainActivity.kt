@@ -1,10 +1,9 @@
 package com.example.southparkquotes
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -14,7 +13,9 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.southparkquotes.UI.MenuFragment
+import com.example.southparkquotes.UI.DetailQuoteFragmentDirections
+import com.example.southparkquotes.UI.HomeFragmentDirections
+import com.example.southparkquotes.UI.MenuFragmentDirections
 import com.example.southparkquotes.databinding.ActivityMainBinding
 import com.example.southparkquotes.model.MainViewModel
 
@@ -69,11 +70,51 @@ class MainActivity : AppCompatActivity() {
                 supportActionBar?.setDisplayShowTitleEnabled(false) // Hier wird keine Überschrift im Titel festgelegt.
             }
 
+            val imageResource = viewModel.repo.charList[viewModel.repo.charPick].imageResource
+            viewModel.selectedImageResource = imageResource ?: R.drawable.stan_marsh_0 // Default Wert
+            val selectedCharacter = viewModel.repo.charList[viewModel.repo.charPick]
+            // damit Detailquotes erkennt das wir aus dem Quotes menu kommen.
+
+            val myNav = HomeFragmentDirections.actionHomeFragmentToDetailQuoteFragment(
+                imageResource!!,
+                viewModel.goingRandomMode,
+                selectedCharacter)
+
+            val myNavDetail = DetailQuoteFragmentDirections.actionDetailQuoteFragmentSelf(
+                imageResource,
+                viewModel.goingRandomMode,
+                selectedCharacter)
+
+            val myNavMenu = MenuFragmentDirections.actionMenuFragmentToDetailQuoteFragment(
+                imageResource,
+                viewModel.goingRandomMode,
+                selectedCharacter)
+
+
             navView.setNavigationItemSelectedListener { menuItem ->
                 when (menuItem.itemId) {
                     // Hier findet die Navigation zwischen den Fragmenten statt.
                     R.id.nav_random_mode -> {
-                        navController.navigate(R.id.quotesMenuFragment)
+                        if (navController.currentDestination?.id == R.id.homeFragment) {
+                            viewModel.goingRandomMode = true // Hier schalten wir amIfromMainMenu auf true
+                            navController.navigate(myNav)
+                        } else if (navController.currentDestination?.id == R.id.menuFragment){
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Random Mode",
+                                Toast.LENGTH_LONG)
+                                .show()
+                            viewModel.goingRandomMode = true
+                            navController.navigate(myNavMenu)
+                        } else {
+                            viewModel.goingRandomMode = true
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Random Mode",
+                                Toast.LENGTH_LONG)
+                                .show()
+                            navController.navigate(myNavDetail)
+                        }
                     }
                     R.id.nav_home -> {
                         navController.navigate(R.id.homeFragment)

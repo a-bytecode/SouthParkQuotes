@@ -44,12 +44,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     var currentIndex = 0 // Der current Index für das Auswählen des Wallpapers
 
-    var amIfromQuotesMenu = true // Für das erkennen der Navigation zwischen QuotesMenu und Detail
+    var goingRandomMode = true // Für das erkennen der Navigation zwischen QuotesMenu und Detail
 
     var selectedBackground = repo.selectedBackground // zum beobachten der Live Data für das Wallpaper
 
     fun toggleAmIfromQuotesMenu() {
-        amIfromQuotesMenu = !amIfromQuotesMenu
+        goingRandomMode = !goingRandomMode
     }
 
     fun throwRandomCharacter(charList : MutableList<Character>) : Character {
