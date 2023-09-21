@@ -3,11 +3,12 @@ package com.example.southparkquotes.model
 import android.os.Parcelable
 import androidx.room.*
 import com.squareup.moshi.Json
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 
 @Entity(tableName = "characters")
-@Parcelize
+@Parcelize // Percalize Plugin aktiviert um die übergabe meiner Custom Klasse als Argument zu gewährleisten.
 data class Character(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0, // Eindeutige ID für die Entität, automatisch generiert
@@ -21,6 +22,7 @@ data class Character(
     var quote : String,
 
 ) : CharacterVoiceList, Parcelable {
+    @IgnoredOnParcel
     @Ignore
     override lateinit var voiceList: List<Int>
 }

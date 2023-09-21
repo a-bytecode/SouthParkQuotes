@@ -55,10 +55,10 @@ class DetailQuoteFragment : Fragment() {
         // animation für das ImageView
         val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.circle_animation)
 
-        if (viewModel.amIfromQuotesMenu) {
-
+        if (viewModel.goingRandomMode) {
             val initialCharacter = viewModel.throwRandomCharacter(viewModel.repo.charList)
             binding.charPic01detail.setImageResource(initialCharacter.imageResource!!)
+            Log.d("Random Mode", "Random? Yes -> ${viewModel.goingRandomMode}")
 
             binding.charPic01detail.setOnClickListener {
 
@@ -80,8 +80,8 @@ class DetailQuoteFragment : Fragment() {
                     }
                 }
             }
-
         } else {
+            Log.d("Random Mode", "Random? NO -> ${viewModel.goingRandomMode}")
             if (imageResource != 0) {
                 binding.charPic01detail.setImageResource(imageResource)
             }

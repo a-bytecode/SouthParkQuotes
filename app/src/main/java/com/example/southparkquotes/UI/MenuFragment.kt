@@ -72,11 +72,11 @@ class MenuFragment : Fragment() {
             val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.sp_nav_host_fragment) as NavHostFragment
             val navController = navHostFragment.navController
 
-            viewModel.amIfromQuotesMenu = false
+            viewModel.goingRandomMode = false
 
             navController.navigate(
                 MenuFragmentDirections.actionMenuFragmentToDetailQuoteFragment(
-                    viewModel.selectedImageResource, viewModel.amIfromQuotesMenu,selectedCharacter
+                    viewModel.selectedImageResource, viewModel.goingRandomMode,selectedCharacter
                 )
             )
             Log.d("CharNameMenuMenu", "ImageID: ${imageResource.toString()}")
