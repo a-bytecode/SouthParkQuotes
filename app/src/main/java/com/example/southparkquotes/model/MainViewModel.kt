@@ -365,4 +365,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         playMe.start()
     }
+
+    fun animateImageView(inputImage : ImageView) {
+
+        GlobalScope.launch(Dispatchers.Main) {
+
+            while (true) {
+                inputImage.visibility = View.VISIBLE
+                delay(1000)
+                inputImage.visibility = View.INVISIBLE
+                delay(1000)
+            }
+        }
+
+    }
 }

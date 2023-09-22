@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                     // Hier findet die Navigation zwischen den Fragmenten statt.
                     R.id.nav_random_mode -> {
                         if (navController.currentDestination?.id == R.id.homeFragment) {
-                            viewModel.goingRandomMode = true // Hier schalten wir amIfromMainMenu auf true
+                            viewModel.goingRandomMode = true // Hier schalten wir goingRandomMode auf true
                             navController.navigate(myNav)
                         } else if (navController.currentDestination?.id == R.id.menuFragment){
                             Toast.makeText(

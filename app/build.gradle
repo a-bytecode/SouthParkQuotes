@@ -79,4 +79,7 @@ dependencies {
     kapt "androidx.room:room-compiler:2.5.2" // Annotation Processor
     implementation "androidx.room:room-ktx:2.5.2" // Room Coroutines Support
     implementation "org.xerial:sqlite-jdbc:3.36.0"
+    //MotionLayout
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha05")
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha05")
 }

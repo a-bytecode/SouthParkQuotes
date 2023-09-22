@@ -29,15 +29,10 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
-interface SouthParkApiServiceQNumber { // Api Call für die Anzahl der quotes.
-
-    @GET("v1/quotes/{number}")
-    suspend fun getQuotesNumbers(@Path("number") format: String): List<Character>
+interface SouthParkApiServiceQNumber {
 
     @GET("v1/quotes/search/{searchTerm}")
     suspend fun getCharacterAndQuotes(@Path("searchTerm") term: String) : List<Character>
-
-    // TODO: Austesten ob dieser Getter auch funktioniert. Mitnehmen bis in das Detailfragment. -> -> ->
 
     object UserApi {
         val retrofitService: SouthParkApiServiceQNumber by lazy {

@@ -55,6 +55,8 @@ class DetailQuoteFragment : Fragment() {
         // animation für das ImageView
         val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.circle_animation)
 
+        viewModel.animateImageView(binding.noCennectWifiIV)
+
         if (viewModel.goingRandomMode) {
             val initialCharacter = viewModel.throwRandomCharacter(viewModel.repo.charList)
             binding.charPic01detail.setImageResource(initialCharacter.imageResource!!)
