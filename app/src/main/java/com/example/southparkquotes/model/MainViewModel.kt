@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewModelScope
 import com.example.southparkquotes.R
+import com.example.southparkquotes.databinding.DetailquoteFragmentBinding
 import com.example.southparkquotes.local.SPDatabase
 import kotlinx.coroutines.*
 import com.example.southparkquotes.remote.Repository
@@ -48,9 +49,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     var selectedBackground = repo.selectedBackground // zum beobachten der Live Data für das Wallpaper
 
-    fun toggleAmIfromQuotesMenu() {
-        goingRandomMode = !goingRandomMode
-    }
 
     fun throwRandomCharacter(charList : MutableList<Character>) : Character {
 
@@ -261,13 +259,42 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getQuotesResponse(name: String) {
         viewModelScope.launch {
             try {
-                _apiStatus.value = ApiStatus.LOADING
-                repo.getQuotesResponse(name)
-                Log.d("GETQUOTES001", "${name}")
-                _apiStatus.value = ApiStatus.START
+                repo.getQuotesResponse(name,this@MainViewModel)
+                Log.d("GETQUOTES001", "${_apiStatus.value}")
             } catch (e: Exception) {
-                _apiStatus.value = ApiStatus.ERROR
                 Log.d("GETQUOTES001", "${characterNameLiveData.value}")
+            }
+        }
+    }
+
+    fun errorAPIStatus() {
+        setAPIStatus(ApiStatus.ERROR)
+    }
+    fun setAPIStatus(status: ApiStatus) {
+        _apiStatus.value = status
+    }
+
+    fun updateViewsVisibility(apiStatus: ApiStatus, binding: DetailquoteFragmentBinding) {
+        when (apiStatus) {
+            ApiStatus.LOADING -> {
+                binding.cardViewDetail.visibility = View.INVISIBLE
+                binding.mrHanky.alpha = 1f
+                binding.noCennectWifiIV.visibility = View.GONE
+            }
+            ApiStatus.START -> {
+                binding.cardViewDetail.visibility = View.VISIBLE
+                binding.mrHanky.alpha = 0f
+                binding.noCennectWifiIV.visibility = View.GONE
+
+            }
+            ApiStatus.ERROR -> {
+                binding.cardViewDetail.visibility = View.VISIBLE
+                binding.mrHanky.alpha = 0f
+                binding.noCennectWifiIV.visibility = View.VISIBLE
+
+                if (binding.noCennectWifiIV.visibility == View.VISIBLE) {
+                    animateImageView(binding.noCennectWifiIV)
+                }
             }
         }
     }
@@ -282,7 +309,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
-
 
     fun createEndDialog(context: Context,callback: () -> Unit): AlertDialog {
         Log.d("MyApp", "createEndDialog: Start")
@@ -301,28 +327,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
             .create()
         Log.d("MyApp", "createEndDialog: End")
-        alertDialog.show()
-        return alertDialog
-    }
-
-    fun createCharacterModeDialog(
-        context: Context,
-        callback: (startCharacterMode: Boolean) -> Unit): AlertDialog {
-
-        val alertDialog = AlertDialog.Builder(context)
-
-            .setTitle("Character Mode")
-            .setMessage("Start, Character Mode?")
-            .setIcon(R.drawable.ic_baseline_diversity_2_24)
-            .setCancelable(true)
-            .setNegativeButton("Nein") { _, _ ->
-                callback(false)
-            }
-            .setPositiveButton("Ja") { _, _ ->
-                callback(true)
-            }
-            .create()
-
         alertDialog.show()
         return alertDialog
     }
