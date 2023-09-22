@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.southparkquotes.R
 import com.example.southparkquotes.local.SPDatabase
+import com.example.southparkquotes.model.ApiStatus
 import com.example.southparkquotes.model.BackgroundImages
 import com.example.southparkquotes.model.Character
+import com.example.southparkquotes.model.MainViewModel
 
 
 class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private val database : SPDatabase) {
@@ -102,8 +104,9 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
     }
 
 
-    suspend fun getQuotesResponse(name:String) {
+    suspend fun getQuotesResponse(name:String,viewModel: MainViewModel) {
         try {
+            viewModel.setAPIStatus(ApiStatus.LOADING)
             dB.deleteAll()
             dB.resetIdSequence()
             val responseImageNameList = api.retrofitService.getCharacterAndQuotes(name)
@@ -114,8 +117,11 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
                 dB.insertCharacters(newQuotes)
             }
 
+            viewModel.setAPIStatus(ApiStatus.START)
+
         } catch (e:Exception) {
             e.printStackTrace()
+            viewModel.errorAPIStatus()
         }
     }
 }

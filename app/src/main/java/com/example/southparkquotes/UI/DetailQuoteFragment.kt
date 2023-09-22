@@ -45,7 +45,6 @@ class DetailQuoteFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
         val args = DetailQuoteFragmentArgs.fromBundle(requireArguments())
         val imageResource = args.imageID
         val imageName = args.character.name
@@ -55,7 +54,7 @@ class DetailQuoteFragment : Fragment() {
         // animation für das ImageView
         val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.circle_animation)
 
-        viewModel.animateImageView(binding.noCennectWifiIV)
+        binding.mrHanky.startAnimation(animation)
 
         if (viewModel.goingRandomMode) {
             val initialCharacter = viewModel.throwRandomCharacter(viewModel.repo.charList)
@@ -107,28 +106,12 @@ class DetailQuoteFragment : Fragment() {
             }
         }
 
-
-        binding.mrHanky.startAnimation(animation)
-
-        viewModel.apiStatus.observe(viewLifecycleOwner) {
-            when (it) {
-                ApiStatus.LOADING -> {
-                    binding.cardViewDetail.visibility = View.INVISIBLE
-                    binding.mrHanky.alpha = 1f
-                }
-                ApiStatus.START -> {
-                    binding.cardViewDetail.visibility = View.VISIBLE
-                    binding.mrHanky.alpha = 0f
-                }
-                ApiStatus.ERROR -> {
-                    binding.cardViewDetail.visibility = View.INVISIBLE
-                    binding.mrHanky.alpha = 0f
-                 }
-            }
-        }
-
         viewModel.selectedBackground.observe(viewLifecycleOwner, Observer { bkgResource ->
             binding.backgroundIV.setImageResource(bkgResource.resourceID)
         })
+
+        viewModel.apiStatus.observe(viewLifecycleOwner) { apiStatus ->
+            viewModel.updateViewsVisibility(apiStatus,binding)
+        }
     }
 }

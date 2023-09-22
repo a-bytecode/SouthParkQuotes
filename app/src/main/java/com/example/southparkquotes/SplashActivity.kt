@@ -1,23 +1,18 @@
 package com.example.southparkquotes
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+import com.example.southparkquotes.model.MainViewModel
 
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var motionLayout : MotionLayout
-    private lateinit var navController: NavController
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +30,9 @@ class SplashActivity : AppCompatActivity() {
                 startId: Int,
                 endId: Int
             ) {
+                val playSound = MediaPlayer.create(this@SplashActivity,R.raw.cartman17)
+
+                playSound.start()
             }
 
             override fun onTransitionChange(
@@ -46,6 +44,7 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+//                Toast.makeText(this@SplashActivity,"Welcome to South Park",Toast.LENGTH_LONG).show()
                 val intent = Intent(this@SplashActivity, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                 startActivity(intent)
