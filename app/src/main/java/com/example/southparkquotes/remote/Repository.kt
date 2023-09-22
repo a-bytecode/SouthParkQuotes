@@ -13,7 +13,6 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
     val dB = database.spDatabaseDao
     val getAllDatabase = dB.getAll()
 
-    // All Characters:
     var charPick = 0
 
     // All Cartman Voices:
@@ -58,7 +57,6 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
         R.raw.cartman39,
         R.raw.cartman40
     )
-
     // All Background Pictures:
     val backgroundPictureList : MutableList<Int> = mutableListOf(
         R.drawable.background_1,
@@ -82,7 +80,7 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
         R.drawable.background_19,
         R.drawable.background_20,
     )
-
+    // All Characters:
     var stan = Character(0, "Stan", R.drawable.stan_marsh_0,"Lets Rock!")
     var cartman = Character(1,"Cartman",R.drawable.eric_cartman,"Lets Rock!")
     var kyle = Character(2,"Kyle",R.drawable.kyle_broflovski,"Lets Rock!")
