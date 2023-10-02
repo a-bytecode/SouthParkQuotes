@@ -14,6 +14,9 @@ interface SPDatabaseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertImages(backgroundImages: BackgroundImages)
 
+    @Query("SELECT * FROM backgroundImages ORDER BY imageID DESC LIMIT 1")
+    fun getLastBackgroundImage(): LiveData<BackgroundImages?>
+
     @Query("DELETE FROM characters")
     suspend fun deleteAll()
 
