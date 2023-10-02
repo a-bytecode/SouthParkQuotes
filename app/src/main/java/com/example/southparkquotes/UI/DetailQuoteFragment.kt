@@ -106,6 +106,12 @@ class DetailQuoteFragment : Fragment() {
             }
         }
 
+        viewModel.loadingLastImage().observe(viewLifecycleOwner, Observer { lastBackground ->
+            if (lastBackground != null) {
+                binding.backgroundIV.setImageResource(lastBackground.resourceID)
+            }
+        })
+
         viewModel.selectedBackground.observe(viewLifecycleOwner, Observer { bkgResource ->
             binding.backgroundIV.setImageResource(bkgResource.resourceID)
         })

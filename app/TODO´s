@@ -6,17 +6,6 @@
 
 ------------------------------------------------------------
 
-- Beim erstellen des Frames im DetailQuoteFragment,
-  das letzte Wallpaper aus der Datenbank laden.
-
-------------------------------------------------------------
-
- - Ungewollte Ausführung: "This is a Placeholder",
-  wird manchmal angezeigt,
-  wenn quotes zu ende geladen haben.
-
-------------------------------------------------------------
-
 - Character den passenden Spruch filtern.(Optional) // In Arbeit
 
 ------------------------------------------------------------

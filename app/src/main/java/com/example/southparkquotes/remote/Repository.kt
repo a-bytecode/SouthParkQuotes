@@ -80,7 +80,7 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
         R.drawable.background_17,
         R.drawable.background_18,
         R.drawable.background_19,
-        R.drawable.background_20,
+        R.drawable.background_20
     )
     // All Characters:
     var stan = Character(0, "Stan", R.drawable.stan_marsh_0,"Lets Rock!")
@@ -103,6 +103,9 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
         _selectedBackground.value = backgroundImages
     }
 
+    fun getLastBackgroundImage(): LiveData<BackgroundImages?> {
+        return dB.getLastBackgroundImage()
+    }
 
     suspend fun getQuotesResponse(name:String,viewModel: MainViewModel) {
         try {

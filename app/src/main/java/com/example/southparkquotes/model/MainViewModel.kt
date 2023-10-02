@@ -136,32 +136,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
-    fun addNumber(editNumber: EditText) {
-
-        val currentNumber = editNumber.text.toString().toIntOrNull() ?: 1 // Elvis-Operator
-
-        val newNumber = currentNumber +1
-
-        if (newNumber >= 5) {
-            editNumber.setText((5).toString())
-        } else {
-            editNumber.setText(newNumber.toString())
-        }
-    }
-
-    fun subNumber(editNumber: EditText) {
-
-        val currentNumber = editNumber.text.toString().toIntOrNull() ?: 1 // Elvis-Operator
-
-        val newNumber = currentNumber -1
-
-        if (newNumber <= 0) {
-            editNumber.setText((0).toString())
-        } else {
-            editNumber.setText(newNumber.toString())
-        }
-    }
-
     fun switchFwdPic(pictureList: MutableList<Int>,currentImage: ImageView, currentTextView : TextView) {
 
         currentIndex ++
@@ -308,6 +282,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 Log.d("Error in Database!!!", "Achtung, kein Background Image gefunden!")
             }
         }
+    }
+
+    fun loadingLastImage(): LiveData<BackgroundImages?> {
+        return repo.getLastBackgroundImage()
     }
 
     fun createEndDialog(context: Context,callback: () -> Unit): AlertDialog {
