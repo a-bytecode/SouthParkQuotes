@@ -318,15 +318,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     plaVoicesByIndex(character,context)
                 }
                 "Stan" -> {
-                    character.voiceList = repo.cartmanVoiceList
+                    character.voiceList = repo.stanVoiceList
                     plaVoicesByIndex(character,context)
                 }
                 "Kyle" -> {
-                    character.voiceList = repo.cartmanVoiceList
+                    character.voiceList = repo.kyleVoiceList
                     plaVoicesByIndex(character,context)
                 }
                 "Butters" -> {
-                    character.voiceList = repo.cartmanVoiceList
+                    character.voiceList = repo.buttersVoiceList
                     plaVoicesByIndex(character,context)
                 }
             }

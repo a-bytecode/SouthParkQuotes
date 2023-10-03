@@ -34,7 +34,7 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         // Hier wird das anfangs-Bild aktualisiert.
-        binding.backgroundIV.setImageResource(
+        binding.setBackgroundIV.setImageResource(
             viewModel.repo.backgroundPictureList[viewModel.currentIndex]
         )
         // hier wird beim eintritt des Frames der Text aktualisiert.
@@ -48,7 +48,7 @@ class SettingsFragment : Fragment() {
             // Forward Click
             viewModel.switchFwdPic(
                 viewModel.repo.backgroundPictureList,
-                binding.backgroundIV,
+                binding.setBackgroundIV,
                 binding.bGNameTV
             )
         }
@@ -57,7 +57,7 @@ class SettingsFragment : Fragment() {
             //Backward Click
             viewModel.switchBwdPic(
                 viewModel.repo.backgroundPictureList,
-                binding.backgroundIV,
+                binding.setBackgroundIV,
                 binding.bGNameTV
             )
         }
