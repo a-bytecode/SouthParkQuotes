@@ -16,7 +16,7 @@ _This app is for every South Park fan and can generate legendary quotes from eve
 * Navigation Drawer for navigating through the menu
 + 2 Different Modes to read Quotes (Random Mode & Character Mode)
 - Settings Menu to choose your favorite background image
-* Sound Bank Implementation (Character Voices)
+* Sound Bank Implementation (Character voices)
 
 ## Source :star:
 _https://github.com/Thatskat/southpark-quotes-api_
