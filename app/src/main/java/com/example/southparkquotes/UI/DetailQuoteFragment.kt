@@ -13,7 +13,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.southparkquotes.R
 import com.example.southparkquotes.databinding.DetailquoteFragmentBinding
-import com.example.southparkquotes.model.ApiStatus
 import com.example.southparkquotes.model.MainViewModel
 import com.example.southparkquotes.remote.Repository
 
@@ -32,7 +31,18 @@ class DetailQuoteFragment : Fragment() {
     ): View? {
         repo = viewModel.repo
         binding = DetailquoteFragmentBinding.inflate(inflater, container, false)
+
+        viewModel.loadingLastImage().observe(viewLifecycleOwner, Observer { currentImage ->
+            if (currentImage != null) {
+                binding.backgroundIV.setImageResource(currentImage.resourceID)
+                Log.d("CurrentImage","CurrentIV -> ${currentImage.resourceID}")
+            } else {
+                binding.backgroundIV.setImageResource(R.drawable.background_1)
+            }
+        })
+
         return binding.root
+
     }
 
     override fun onResume() { // on Resume wird verwendet um Aktionen
@@ -105,16 +115,6 @@ class DetailQuoteFragment : Fragment() {
                 }
             }
         }
-
-        viewModel.loadingLastImage().observe(viewLifecycleOwner, Observer { lastBackground ->
-            if (lastBackground != null) {
-                binding.backgroundIV.setImageResource(lastBackground.resourceID)
-            }
-        })
-
-        viewModel.selectedBackground.observe(viewLifecycleOwner, Observer { bkgResource ->
-            binding.backgroundIV.setImageResource(bkgResource.resourceID)
-        })
 
         viewModel.apiStatus.observe(viewLifecycleOwner) { apiStatus ->
             viewModel.updateViewsVisibility(apiStatus,binding)

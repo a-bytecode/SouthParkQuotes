@@ -59,6 +59,75 @@ class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private va
         R.raw.cartman39,
         R.raw.cartman40
     )
+    //All Butters Voices:
+    var buttersVoiceList : List<Int> = listOf(
+        R.raw.butters1,
+        R.raw.butters2,
+        R.raw.butters3,
+        R.raw.butters4,
+        R.raw.butters5,
+        R.raw.butters6,
+        R.raw.butters7,
+        R.raw.butters8,
+        R.raw.butters9,
+        R.raw.butters10,
+        R.raw.butters11,
+        R.raw.butters12,
+        R.raw.butters13,
+        R.raw.butters14,
+        R.raw.butters15,
+        R.raw.butters16,
+        R.raw.butters17,
+        R.raw.butters18,
+        R.raw.butters19,
+        R.raw.butters20,
+        R.raw.butters21,
+        R.raw.butters22
+        )
+    // All Kyle Voices:
+    var kyleVoiceList : List<Int> = listOf(
+        R.raw.kyle1,
+        R.raw.kyle2,
+        R.raw.kyle3,
+        R.raw.kyle4,
+        R.raw.kyle5,
+        R.raw.kyle6,
+        R.raw.kyle7,
+        R.raw.kyle8,
+        R.raw.kyle9,
+        R.raw.kyle10,
+        R.raw.kyle11,
+        R.raw.kyle12,
+        R.raw.kyle13,
+        R.raw.kyle14,
+        R.raw.kyle15,
+        R.raw.kyle16,
+        R.raw.kyle17,
+        R.raw.kyle18,
+        R.raw.kyle19,
+        R.raw.kyle20,
+        R.raw.kyle21
+    )
+    //All Stan Voices:
+    var stanVoiceList : List<Int> = listOf(
+        R.raw.stan1,
+        R.raw.stan2,
+        R.raw.stan3,
+        R.raw.stan4,
+        R.raw.stan5,
+        R.raw.stan6,
+        R.raw.stan7,
+        R.raw.stan8,
+        R.raw.stan9,
+        R.raw.stan10,
+        R.raw.stan11,
+        R.raw.stan12,
+        R.raw.stan13,
+        R.raw.stan14,
+        R.raw.stan15,
+        R.raw.stan16
+
+    )
     // All Background Pictures:
     val backgroundPictureList : MutableList<Int> = mutableListOf(
         R.drawable.background_1,
