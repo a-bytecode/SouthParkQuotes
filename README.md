@@ -22,7 +22,7 @@
 _https://github.com/Thatskat/southpark-quotes-api_
 
 ## Demo:
-<img src="https://github.com/a-bytecode/SouthParkQuotes/blob/main/app/src/main/res/drawable/demovideo.gif" alt="MyIntro" width="200" height="400"> <img src="https://github.com/a-bytecode/SouthParkQuotes/assets/115455827/7078f567-3fd6-4a57-b24a-b69e0b098aef" width="250" height="400"> <img src="https://github.com/a-bytecode/SouthParkQuotes/assets/115455827/b275f7ba-1d22-40c9-8b9a-a7d62b01e846" width="250" height="400">
+<img src="https://github.com/a-bytecode/SouthParkQuotes/blob/main/app/src/main/res/drawable/demovideo.gif" alt="MyIntro" width="250" height="450"> <img src="https://github.com/a-bytecode/SouthParkQuotes/assets/115455827/7078f567-3fd6-4a57-b24a-b69e0b098aef" width="250" height="450"> <img src="https://github.com/a-bytecode/SouthParkQuotes/assets/115455827/b275f7ba-1d22-40c9-8b9a-a7d62b01e846" width="250" height="450">
 
 
 
