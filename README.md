@@ -14,7 +14,7 @@ _This app is for every South Park fan and can generate legendary quotes from eve
 
 - Choose Characters (Cartman, Kyle, Stan & Butters)
 * Navigation Drawer for navigating through the menu
-+ 2 Different Modes to read Quotes (Random Mode & Character Mode)
++ 2 Different Modes to read Quotes (Random mode & Character mode)
 - Settings Menu to choose your favorite background image
 * Sound Bank Implementation (Character voices)
 
