@@ -1,5 +1,5 @@
 # SouthParkQuotes :tm:
-
+_This app is for every South Park fan and can generate legendary quotes from every main character of the series._
 ## Architecture patterns :white_check_mark:
 
 - LiveData
