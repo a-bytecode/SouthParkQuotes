@@ -13,7 +13,6 @@ import com.example.southparkquotes.model.MainViewModel
 class Repository(private val api: SouthParkApiServiceQNumber.UserApi, private val database : SPDatabase) {
 
     val dB = database.spDatabaseDao
-    val getAllDatabase = dB.getAll()
 
     var charPick = 0
 

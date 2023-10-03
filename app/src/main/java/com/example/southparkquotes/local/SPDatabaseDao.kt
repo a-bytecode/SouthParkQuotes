@@ -30,3 +30,4 @@ interface SPDatabaseDao {
     fun getAll(): LiveData<List<Character>>
 
 }
+
