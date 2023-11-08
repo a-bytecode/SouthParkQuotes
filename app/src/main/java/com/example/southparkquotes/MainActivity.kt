@@ -19,8 +19,6 @@ import com.example.southparkquotes.UI.MenuFragmentDirections
 import com.example.southparkquotes.databinding.ActivityMainBinding
 import com.example.southparkquotes.model.MainViewModel
 
-
-
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var drawerLayout: DrawerLayout
@@ -60,7 +58,6 @@ class MainActivity : AppCompatActivity() {
 
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
-
             // Hier wird das Pfeil Symbol durch "true" angezeigt.
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             // Durch den addOnDestinationChangedListener legen wir das Custom-Symbol dauerhaft fest.
