@@ -6,7 +6,7 @@ _This app is for every South Park fan and can generate legendary quotes from eve
 - LiveData
 + Repository
 - Retrofit Service
-* RoomDataBase (MySQL)
+* RoomDataBase (SQLite)
 + Data Access Object (DAO)
 
 
